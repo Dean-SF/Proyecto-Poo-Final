@@ -10,7 +10,7 @@ public class KVPair<K,V> {
     private K key;
     private V value;
     
-    public void KVPair(){};
+    public KVPair(){};
     public KVPair(K key) {
         this.key = key;
     }
@@ -42,6 +42,5 @@ public class KVPair<K,V> {
     @Override
     public String toString() {
         return "KVPair{" + "key=" + key + ", value=" + value + '}';
-    }
-    
+    } 
 }
