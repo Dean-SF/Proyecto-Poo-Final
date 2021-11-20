@@ -18,7 +18,7 @@ public class Pedido {
     private int precio;
     private int calorias;
     private TRecoger recoger;
-    private ArrayList<KVPair> productos;
+    private ArrayList<KVPair<Producto,Integer>> productos;
 
     public Pedido(){};
     
@@ -30,7 +30,7 @@ public class Pedido {
         this.precio = precio;
         this.calorias = calorias;
         this.recoger = recoger;
-        productos = new ArrayList<KVPair>(); 
+        productos = new ArrayList<KVPair<Producto,Integer>>(); 
     }
 
     public void setCodigo(String codigo) {
@@ -61,7 +61,7 @@ public class Pedido {
         this.recoger = recoger;
     }
 
-    public void setProductos(ArrayList<KVPair> productos) {
+    public void setProductos(ArrayList<KVPair<Producto,Integer>> productos) {
         this.productos = productos;
     }
 
@@ -93,7 +93,7 @@ public class Pedido {
         return recoger;
     }
 
-    public ArrayList<KVPair> getProductos() {
+    public ArrayList<KVPair<Producto,Integer>> getProductos() {
         return productos;
     }
 }
