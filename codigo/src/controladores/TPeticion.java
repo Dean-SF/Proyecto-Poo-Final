@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controladores;
 
 /**
@@ -10,5 +5,6 @@ package controladores;
  * @author Esteban
  */
 public enum TPeticion {
-    
+    AGREGAR_PROD, ELIMINAR_PROD, CONSULTAR_PROD, MODIFICAR_PROD,
+    AGREGAR_PED, ELIMINAR_PED, CONSULTAR_PED;
 }
