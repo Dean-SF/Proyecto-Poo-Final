@@ -34,8 +34,7 @@ public class KVPair<K,V> {
     public V getValue() {
         return value;
     }
-
-    public boolean igual(KVPair par){
+    public boolean igual(KVPair<K,V> par){
         return key.equals(par.getKey());
     }
 
