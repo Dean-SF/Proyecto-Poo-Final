@@ -55,16 +55,16 @@ public class AdminProductos {
         }
         switch (tipo) {
         case CALORIAS:
-            producto.setCalorias(valor);
+            producto.getPorcion().setCalorias(valor);
             return true;
         case CANTIDAD:
-            producto.setCantidad(valor);
+            producto.getPorcion().setCantidad(valor);
             return true;
         case PRECIO:
             producto.setPrecio(valor);
             return true;
         case SIZE:
-            producto.setSize(valor);
+            producto.getPorcion().setSize(valor);
             return true;
         default:
             return false;

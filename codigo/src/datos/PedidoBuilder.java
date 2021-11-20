@@ -6,7 +6,7 @@ package datos;
  */
 public class PedidoBuilder {
     private String codigo;
-    private String nombre = "N/A";
+    private String nombre;
     private int celular = 0;
     private String direccion = "N/A";
     private int precio;
@@ -15,7 +15,8 @@ public class PedidoBuilder {
     
     public PedidoBuilder(){};
     public Pedido buildPedido(){
-        return new Pedido(codigo,nombre,celular,direccion,precio,calorias,recoger);
+        Usuario temp = new Usuario(nombre, celular, direccion);
+        return new Pedido(codigo,temp,precio,calorias,recoger);
     }
     public PedidoBuilder codigo(String codigo){
         this.codigo = codigo;
