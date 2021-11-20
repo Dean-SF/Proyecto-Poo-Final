@@ -5,7 +5,7 @@ package datos;
  * @author Esteban
  */
 public class ProductoBuilder {
-    private String codigo;
+   private String codigo;
    private String nombre;
    private String descripcion;
    private int size;

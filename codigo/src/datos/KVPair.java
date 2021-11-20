@@ -10,7 +10,7 @@ public class KVPair<K,V> {
     private K key;
     private V value;
     
-    public void KVPai(){};
+    public void KVPair(){};
     public KVPair(K key) {
         this.key = key;
     }
