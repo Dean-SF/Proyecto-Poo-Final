@@ -11,12 +11,12 @@ public class ProductoBuilder {
    private int size;
    private int cantidad;
    private int calorias;
-   private int caloriasUnidad;
    private int precio;
    
    public ProductoBuilder(){};
     public Producto buildProducto(){
-        return new Producto(codigo,nombre,descripcion,size,cantidad,calorias,caloriasUnidad,precio);
+        Porcion temp = new Porcion(cantidad,size,calorias);
+        return new Producto(codigo,nombre,descripcion,temp,precio);
     }
     public ProductoBuilder codigo(String codigo){
         this.codigo = codigo;
@@ -40,10 +40,6 @@ public class ProductoBuilder {
     }
     public ProductoBuilder calorias(int calorias){
         this.calorias = calorias;
-        return this;
-    }
-    public ProductoBuilder caloriasUnidad(int caloriasUnidad){
-        this.caloriasUnidad = caloriasUnidad;
         return this;
     }
     public ProductoBuilder precio(int precio){

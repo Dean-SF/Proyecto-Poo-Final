@@ -12,43 +12,31 @@ import java.util.ArrayList;
  */
 public class Pedido {
     private String codigo;
-    private String nombre;
-    private int celular;
-    private String direccion;
+    private Usuario usuario;
     private int precio;
     private int calorias;
     private TRecoger recoger;
-    private ArrayList<KVPair> productos;
+    private ArrayList<KVPair<Producto, Integer>> productos;
 
     public Pedido(){};
     
-    public Pedido(String codigo, String nombre, int celular, String direccion, int precio, int calorias, TRecoger recoger) {
+    public Pedido(String codigo, Usuario usuario, int precio, int calorias, TRecoger recoger) {
         this.codigo = codigo;
-        this.nombre = nombre;
-        this.celular = celular;
-        this.direccion = direccion;
+        this.usuario = usuario;
         this.precio = precio;
         this.calorias = calorias;
         this.recoger = recoger;
-        productos = new ArrayList<KVPair>(); 
+        productos = new ArrayList<KVPair<Producto, Integer>>(); 
     }
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
-    public void setCelular(int celular) {
-        this.celular = celular;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
+    
     public void setPrecio(int precio) {
         this.precio = precio;
     }
@@ -61,7 +49,7 @@ public class Pedido {
         this.recoger = recoger;
     }
 
-    public void setProductos(ArrayList<KVPair> productos) {
+    public void setProductos(ArrayList<KVPair<Producto, Integer>> productos) {
         this.productos = productos;
     }
 
@@ -69,18 +57,10 @@ public class Pedido {
         return codigo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Usuario getUsuario() {
+        return usuario;
     }
-
-    public int getCelular() {
-        return celular;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
+    
     public int getPrecio() {
         return precio;
     }
@@ -93,7 +73,7 @@ public class Pedido {
         return recoger;
     }
 
-    public ArrayList<KVPair> getProductos() {
+    public ArrayList<KVPair<Producto, Integer>> getProductos() {
         return productos;
     }
 }
