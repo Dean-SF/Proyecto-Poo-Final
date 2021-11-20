@@ -9,6 +9,6 @@ package datos;
  *
  * @author Esteban
  */
-public class Envio {
+public enum TRecoger {
     
 }
