@@ -1,7 +1,6 @@
 package controladores;
 
 import java.util.LinkedList;
-
 import datos.Producto;
 
 public class AdminProductos {
@@ -79,6 +78,10 @@ public class AdminProductos {
         }
         productos.remove(producto);
         return true;
+    }
+    
+    public LinkedList<Producto> getProductos(){
+        return productos;
     }
 
 }
