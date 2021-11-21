@@ -4,12 +4,17 @@
  */
 package servidor;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
+import controladores.ServerPetition;
+import controladores.TPeticion;
 import datos.IConstantes;
+import datos.Peticion;
 
 /**
  *
@@ -17,6 +22,7 @@ import datos.IConstantes;
  */
 public class Servidor {
     private boolean encendido = true;
+    private ServerPetition interprete = new ServerPetition();
     private Thread proceso;
     public Servidor() {
         proceso = new Thread( new Runnable() {
@@ -28,15 +34,24 @@ public class Servidor {
                         Socket cliente = conexion.accept();
 
                         ObjectOutputStream salida = new ObjectOutputStream(cliente.getOutputStream());
-
+                        
                         ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+                        
+                        
+                        Peticion peticion = (Peticion) entrada.readObject();
+                        if(peticion.getPeticion() == TPeticion.APAGAR)
+                            break;
 
+                        peticion = interprete.serverPeticion(peticion);
 
+                        salida.writeObject(peticion);
+                        
+                        cliente.close();
                     }
                     conexion.close();
                     
                 } catch (Exception e) {
-                    
+                    System.out.println(e);
                 }
            } 
         });
@@ -44,5 +59,18 @@ public class Servidor {
     }
     public void apagar() {
         this.encendido = false;
+        try {
+            Socket apagado = new Socket(IConstantes.HOST,IConstantes.PUERTO);
+
+            ObjectOutputStream salida = new ObjectOutputStream(apagado.getOutputStream());
+
+            salida.writeObject(new Peticion(TPeticion.APAGAR, null));
+
+            apagado.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 }

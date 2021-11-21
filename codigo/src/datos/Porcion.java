@@ -1,10 +1,12 @@
 package datos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Esteban
  */
-public class Porcion {
+public class Porcion implements Serializable{
     private int cantidad;
     private int size;
     private int calorias;

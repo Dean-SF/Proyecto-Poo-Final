@@ -1,10 +1,12 @@
 package datos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DeanSF
  */
-public class Producto {
+public class Producto implements Serializable{
    private String codigo;
    private String nombre;
    private String descripcion;
