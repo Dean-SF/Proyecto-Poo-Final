@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -35,9 +36,30 @@ public class ManejoProductos extends JPanel implements ActionListener{
     private JLabel lTamanno = new JLabel("Tamaño:");
     private JTextField tamanno = new JTextField();
 
+    private JLabel lCantidad = new JLabel("Cantidad:");
+    private JTextField cantidad = new JTextField();
+
+    private JLabel lCalorias = new JLabel("Calorias:");
+    private JTextField calorias = new JTextField();
+
+    private JLabel lPrecio = new JLabel("Precio:");
+    private JTextField precio = new JTextField();
+
+    // Tabla
+    private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
+                                         "Piezas","Calorias","Calorias u/n","precio"};
+
+    private Object [][] vacio = {{null,null,null,null,null,null,null,null,null}};
+    private JTable tabla = new JTable(vacio,columnas);
+    private JScrollPane tablaScroll = new JScrollPane(tabla);
+
+    private JButton agregar = new JButton("Agregar");
+    private JButton modificar = new JButton("Modificar");
+    private JButton eliminar = new JButton("Eliminar");
+
     public ManejoProductos() {
         // Setup
-        setSize(1280, 720);
+        setSize(1280, 450);
         setVisible(false);
         setLayout(null);
 
@@ -65,20 +87,58 @@ public class ManejoProductos extends JPanel implements ActionListener{
         add(descScroll);
 
         lTamanno.setFont(Fonts.labels);
-        lTamanno.setBounds(10, 230, 100, 35);
+        lTamanno.setBounds(10, 235, 100, 35);
         add(lTamanno);
         tamanno.setFont(Fonts.textField);
-        tamanno.setBounds(105, 237, 100, 25);
+        tamanno.setBounds(105, 242, 100, 25);
         add(tamanno);
-        
 
+        lCantidad.setFont(Fonts.labels);
+        lCantidad.setBounds(10, 275, 100, 35);
+        add(lCantidad);
+        cantidad.setFont(Fonts.textField);
+        cantidad.setBounds(110, 282, 100, 25);
+        add(cantidad);
+
+        lCalorias.setFont(Fonts.labels);
+        lCalorias.setBounds(10, 315, 100, 35);
+        add(lCalorias);
+        calorias.setFont(Fonts.textField);
+        calorias.setBounds(100, 322, 100, 25);
+        add(calorias);
+
+        lPrecio.setFont(Fonts.labels);
+        lPrecio.setBounds(10, 350, 100, 35);
+        add(lPrecio);
+        precio.setFont(Fonts.textField);
+        precio.setBounds(85, 357, 100, 25);
+        add(precio);
 
         vertical.setBounds(350, 10, 10, 660);
         add(vertical);
 
+        tabla.setFont(Fonts.tabla);
+        tabla.setEnabled(false);
+        tablaScroll.setBounds(370, 10, 880, 280);
+        add(tablaScroll);
+
+        horizontal.setBounds(360, 305, 890, 10);
+        add(horizontal);
+
+        agregar.setFont(Fonts.botones);
+        agregar.setBounds(470, 320, 100, 40);
+        add(agregar);
+
+        modificar.setFont(Fonts.botones);
+        modificar.setBounds(750, 320, 150, 40);
+        add(modificar);
+
+        eliminar.setFont(Fonts.botones);
+        eliminar.setBounds(1070, 320, 100, 40);
+        add(eliminar);
 
         volver.setFont(Fonts.botones);
-        volver.setBounds(1160, 635, 100, 40);
+        volver.setBounds(1160, 370, 100, 40);
         volver.addActionListener(this);
         add(volver);
     }

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import cliente.interfaz.admin.AdminMenu;
 import cliente.interfaz.admin.Catalogo;
+import cliente.interfaz.admin.EstadisticasPedidos;
 import cliente.interfaz.admin.Ingreso;
 import cliente.interfaz.admin.ManejoProductos;
 import cliente.interfaz.admin.Pedidos;
@@ -29,12 +30,13 @@ public class GestorVentanas{
     private static Catalogo catalogo = new Catalogo();
     private static Pedidos pedidos = new Pedidos();
     private static ManejoProductos adminProductos = new ManejoProductos();
+    private static EstadisticasPedidos estadisticas = new EstadisticasPedidos();
     
     //ventanas de cliente
     private static MenuCliente menuCliente = new MenuCliente();
     private static VentanaEliminarPedido eliminarPedido = new VentanaEliminarPedido();
     private static VentanaRealizarPedido realizarPedido = new VentanaRealizarPedido();
-    private static VentanaListaProductos verProductos = new VentanaListaProductos();
+    
     public GestorVentanas() {
         // Inicializacion del historial
         historial.push(menu);
@@ -55,12 +57,11 @@ public class GestorVentanas{
         frame.add(catalogo);
         frame.add(pedidos);
         frame.add(adminProductos);
+        frame.add(estadisticas);
         
         frame.add(menuCliente);
         frame.add(eliminarPedido);
         frame.add(realizarPedido);
-        frame.add(verProductos);
-      
 
     }
 
@@ -115,6 +116,14 @@ public class GestorVentanas{
         frame.setLocationRelativeTo(null);
     }
     
+    static public void abrirEstadisticas() {
+        administracion.setVisible(false);
+        estadisticas.setVisible(true);
+        historial.push(estadisticas);
+        frame.setSize(estadisticas.getSize());
+        frame.setLocationRelativeTo(null);
+    }
+    
     //acciones de cliente
     static public void cliente() {
         historial.push(menuCliente);
@@ -135,14 +144,6 @@ public class GestorVentanas{
         menuCliente.setVisible(false);
         realizarPedido.setVisible(true);
         frame.setSize(realizarPedido.getSize());
-        frame.setLocationRelativeTo(null);
-    }
-    
-    static public void verProductos() {
-        historial.push(verProductos);
-        menuCliente.setVisible(false);
-        verProductos.setVisible(true);
-        frame.setSize(verProductos.getSize());
         frame.setLocationRelativeTo(null);
     }
     

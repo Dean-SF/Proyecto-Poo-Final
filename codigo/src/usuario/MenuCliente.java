@@ -64,7 +64,7 @@ public class MenuCliente extends JPanel implements ActionListener{
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== listaProductos){
-           GestorVentanas.verProductos();
+           GestorVentanas.abrirCatalogo();
         }
         if(e.getSource()== realizarPedido){
             GestorVentanas.realizarPedido();
