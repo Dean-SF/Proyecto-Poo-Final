@@ -16,10 +16,10 @@ public class test {
         Servidor servidor = new Servidor();
 
         Producto pedido = new ProductoBuilder()
-                                        .codigo("1234")
-                                        .calorias(500)
-                                        .nombre("nose")
-                                        .buildProducto();
+                                .codigo("1234")
+                                .calorias(500)
+                                .nombre("nose")
+                                .buildProducto();
 
         enviarPeticion(new Peticion(TPeticion.AGREGAR_PROD,pedido));
 

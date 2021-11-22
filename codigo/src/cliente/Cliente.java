@@ -4,10 +4,14 @@
  */
 package cliente;
 
+import cliente.interfaz.GestorVentanas;
+
 /**
  *
  * @author DeanSF
  */
 public class Cliente {
-    
+    public static void main(String[] args) {
+        new GestorVentanas();
+    }
 }
