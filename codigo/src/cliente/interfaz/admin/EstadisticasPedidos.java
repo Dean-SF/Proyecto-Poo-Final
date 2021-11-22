@@ -43,6 +43,18 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
     private JScrollPane paneH = new JScrollPane(tablaH);
     private JScrollPane paneL = new JScrollPane(tablaL);
     
+    //Para recoger
+    private JLabel sitio = new JLabel("En sistio:");
+    private JLabel sPorcentaje = new JLabel("Porcentaje:");
+    private JLabel sCantidad= new JLabel("Cantidad:");
+    private JLabel recoger = new JLabel("Para recoger:");
+    private JLabel rPorcentaje = new JLabel("Porcentaje:");
+    private JLabel rCantidad = new JLabel("Cantidad:");
+    private JLabel express = new JLabel("En express:");
+    private JLabel ePorcentaje = new JLabel("Porcentaje:");
+    private JLabel eCantidad = new JLabel("Cantidad:");
+    
+    
     /**
      * Carga un JTable con los datos de los productos.
      */
@@ -93,6 +105,42 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
         setVisible(false);
         setLayout(null);
         
+        sitio.setFont(Fonts.botones);
+        sitio.setBounds(30, 500, 300, 25);
+        add(sitio);
+        
+        sPorcentaje.setFont(Fonts.botones);
+        sPorcentaje.setBounds(100, 480, 300, 25);
+        add(sPorcentaje);
+        
+        sCantidad.setFont(Fonts.botones);
+        sCantidad.setBounds(100, 520, 300, 25);
+        add(sCantidad);
+        
+        recoger.setFont(Fonts.botones);
+        recoger.setBounds(410, 500, 300, 25);
+        add(recoger);
+        
+        rPorcentaje.setFont(Fonts.botones);
+        rPorcentaje.setBounds(515, 480, 300, 25);
+        add(rPorcentaje);
+        
+        rCantidad.setFont(Fonts.botones);
+        rCantidad.setBounds(515, 520, 300, 25);
+        add(rCantidad);
+        
+        express.setFont(Fonts.botones);
+        express.setBounds(800, 500, 300, 25);
+        add(express);
+        
+        ePorcentaje.setFont(Fonts.botones);
+        ePorcentaje.setBounds(885, 480, 300, 25);
+        add(ePorcentaje);
+        
+        eCantidad.setFont(Fonts.botones);
+        eCantidad.setBounds(885, 520, 300, 25);
+        add(eCantidad);
+        
         tituloH.setFont(Fonts.botones);
         tituloH.setBounds(220, 30, 300, 25);
         add(tituloH);
@@ -102,7 +150,7 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
         add(tituloL);
         
         tituloP.setFont(Fonts.botones);
-        tituloP.setBounds(450, 400, 300, 25);
+        tituloP.setBounds(450, 420, 300, 25);
         add(tituloP);
         
         tablaH.setFont(Fonts.tabla);

@@ -46,6 +46,8 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
             return;
         }
         Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PED,numero));
+        JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente","Aviso",
+        JOptionPane.INFORMATION_MESSAGE);
     }
     
     public VentanaEliminarPedido() {
