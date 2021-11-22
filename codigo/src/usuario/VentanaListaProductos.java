@@ -7,6 +7,8 @@ package usuario;
 
 import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
+import controladores.AdminProductos;
+import datos.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -21,7 +23,7 @@ public class VentanaListaProductos extends JPanel implements ActionListener{
 
     // Tabla
     private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
-                                         "Piezas","Calorias","Calorias u/n","precio"};
+                                         "Piezas","Calorias","Calorias u/n","Precio"};
 
     private Object [][] vacio = {{null,null,null,null,null,null,null,null,null}};
     private JTable tabla = new JTable(vacio,columnas);
@@ -41,6 +43,7 @@ public class VentanaListaProductos extends JPanel implements ActionListener{
 
         tabla.setFont(Fonts.tabla);
         tabla.setEnabled(false);
+        tabla.setValueAt("hola", 0, 0);
         tablaScroll.setBounds(30, 90, 925, 360);
         add(tablaScroll);
 
@@ -49,12 +52,10 @@ public class VentanaListaProductos extends JPanel implements ActionListener{
         volver.addActionListener(this);
         add(volver);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
             GestorVentanas.volverAtras();
         }
-        
     }
 }

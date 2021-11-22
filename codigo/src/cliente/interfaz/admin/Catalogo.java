@@ -18,7 +18,7 @@ public class Catalogo extends JPanel implements ActionListener{
 
     // Tabla
     private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
-                                         "Piezas","Calorias","Calorias u/n","precio"};
+                                         "Piezas","Calorias","Calorias u/n","Precio"};
 
     private Object [][] vacio = {{null,null,null,null,null,null,null,null,null}};
     private JTable tabla = new JTable(vacio,columnas);
