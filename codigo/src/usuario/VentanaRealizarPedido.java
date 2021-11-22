@@ -9,6 +9,8 @@ import cliente.interfaz.GestorVentanas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 /**
@@ -21,8 +23,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     //productos
     private JLabel listaProductosLabel = new JLabel("Lista de Productos");
     private JComboBox<String> productos = new JComboBox<String>();
-    
-    private JSpinner cantidad = new JSpinner();
+   
+    private JLabel cantidadLabel = new JLabel("Cantidad:");
+    private JTextField cantidad = new JTextField();
     
     private JLabel productosSeleccionadosLabel = new JLabel("Productos Seleccionados");
     private JList<String> productosSeleccionados = new JList<String>();
@@ -68,10 +71,14 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         productos.setFont(new Font("Segoe UI",Font.PLAIN,20));
         productos.setBounds(50,150,300,30);
         
+        cantidadLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
+        cantidadLabel.setBounds(50,180,100,30);
         
         cantidad.setFont(new Font("Segoe UI",Font.PLAIN,20));
-        cantidad.setBounds(50,180,50,30);
-        
+        cantidad.setBounds(300,180,50,30);
+       
+        limitarCantidad(cantidad);
+       
         productosSeleccionadosLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
         productosSeleccionadosLabel.setBounds(50,270,300,30);
         
@@ -102,7 +109,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         celularLabel.setBounds(400,150,250,30);
         
         celularDato.setFont(new Font("Segoe UI",Font.PLAIN,20));
-        celularDato.setBounds(480,150,250,30);
+        celularDato.setBounds(480,150,100,30);
+        limitarNumero(celularDato);
         
         direccionLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
         direccionLabel.setBounds(400,200,300,30);
@@ -157,6 +165,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         this.add(listaProductosLabel);
         this.add(productos);
+        this.add(cantidadLabel);
         this.add(cantidad);
         this.add(productosSeleccionadosLabel);
         this.add(productosSeleccionados);
@@ -179,17 +188,50 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
-    
+    private void limitarCantidad(JTextField amount){
+        amount.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char c = e.getKeyChar();
+                if(!Character.isDigit(c)){//Hace que solo se puedan ingresar numeros
+                    e.consume();
+                }
+                if(amount.getText().length() > 1){// solo se puedan ingresar 2 digitos
+                    e.consume();
+                }
+            }
+        });
+    }
+    private void limitarNumero(JTextField amount){
+        amount.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char c = e.getKeyChar();
+                if(!Character.isDigit(c)){//Hace que solo se puedan ingresar numeros
+                    e.consume();
+                }
+                if(amount.getText().length() > 7){// solo se puedan ingresar 8 digitos
+                    e.consume();
+                }
+            }
+        });
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== pedir){
-            //GestorVentanas.abrirMenuRegistro();
+            if(!Validaciones.validarNombre(nombreDato)){
+                JOptionPane.showMessageDialog(this, "FAVOR INGRESAR UN NOMBRE","ERROR",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         if(e.getSource()== agregar){
-            //GestorVentanas.abrirMenuRegistro();
+            if(!Validaciones.validarCantidad(cantidad)){
+                JOptionPane.showMessageDialog(this, "FAVOR INGRESAR UNA CANTIDAD MAYOR A 0","ERROR",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         if(e.getSource()== eliminar){
             //GestorVentanas.abrirMenuRegistro();
