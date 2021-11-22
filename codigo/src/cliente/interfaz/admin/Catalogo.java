@@ -22,47 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Catalogo extends JPanel implements ActionListener{
-    /*private JLabel titulo = new JLabel("Catalogo");
-    private JButton volver = new JButton("Volver");
-
-    // Tabla
-    private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
-                                         "Piezas","Calorias","Calorias u/n","precio"};
-
-    private Object [][] vacio = {{null,null,null,null,null,null,null,null,null}};
-    private JTable tabla = new JTable(vacio,columnas);
-    private JScrollPane tablaScroll = new JScrollPane(tabla);
-
-
-
-    public Catalogo() {
-        // Setup
-        setSize(1000, 540);
-        setVisible(false);
-        setLayout(null);
-        
-        titulo.setFont(Fonts.titulos);
-        titulo.setBounds(410, 30, 200, 40);
-        add(titulo);
-
-        tabla.setFont(Fonts.tabla);
-        tabla.setEnabled(false);
-        tablaScroll.setBounds(30, 90, 925, 360);
-        add(tablaScroll);
-
-        volver.setFont(Fonts.botones);
-        volver.setBounds(880, 455, 100, 40);
-        volver.addActionListener(this);
-        add(volver);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == volver) {
-            GestorVentanas.volverAtras();
-        }
-        
-    }*/
     private JButton volver = new JButton("Volver");
     private JButton graficar = new JButton("Graficar");
     private LinkedList<Producto> productos = new LinkedList<Producto>();
@@ -71,19 +30,12 @@ public class Catalogo extends JPanel implements ActionListener{
     private Object [][] datos = {{null,null,null,null,null,null,null,null,null}};
     private JTable tabla = new JTable(datos,titulos);
     private JScrollPane pane = new JScrollPane(tabla);
-    private int x = 0;
     
     /**
      * Carga un JTable con los datos de los productos.
      */
      private void cargarTabla(){
         try{
-            Producto producto = new ProductoBuilder().nombre("Prueba"+x)
-                    .codigo("x"+x)
-                    .size(1)
-                    .buildProducto();
-            x+=1;
-            Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PROD,producto));
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
             productos = (LinkedList)peticion.getDatos();
             
@@ -132,13 +84,13 @@ public class Catalogo extends JPanel implements ActionListener{
         pane.setBounds(30, 90, 925, 360);
         add(pane);
         
-        graficar.setFont(Fonts.tabla);
-        graficar.setBounds(880, 455, 100, 100);
+        graficar.setFont(Fonts.botones);
+        graficar.setBounds(350, 455, 100, 40);
         graficar.addActionListener(this);
         add(graficar);
         
         volver.setFont(Fonts.botones);
-        volver.setBounds(880, 455, 100, 40);
+        volver.setBounds(550, 455, 100, 40);
         volver.addActionListener(this);
         add(volver);
         
