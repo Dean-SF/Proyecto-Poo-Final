@@ -5,6 +5,7 @@
  */
 package administrador;
 
+import cliente.interfaz.GestorVentanas;
 import interfaz.ControladorVentanas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -70,7 +71,7 @@ public class VentanaAdministracion extends JPanel implements ActionListener{
             ControladorVentanas.volverAtras();
         }
         if(e.getSource()== verCatalogo){
-            //GestorVentanas.abrirMenuRegistro();
+            GestorVentanas.abrirCatalogo();
         }
         if(e.getSource()== manejoProductos){
             //GestorVentanas.abrirMenuRegistro();
