@@ -30,9 +30,10 @@ public class AdminPedidos {
         }
         return null;
     }
-    public boolean eliminarPedido(Pedido pedido){
-        if(consultarPedido(pedido.getCodigo())!=null){
-            pedidos.remove(pedido);
+    public boolean eliminarPedido(String codigo){
+        Pedido temp = consultarPedido(codigo);
+        if(temp!=null){
+            pedidos.remove(temp);
             return true;
         }
         return false;
