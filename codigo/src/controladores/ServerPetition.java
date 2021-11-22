@@ -46,7 +46,7 @@ public class ServerPetition {
             peticion.setDatos(adminPedidos.agregarPedido(temp));
             return peticion;
         }else if(tipo==TPeticion.ELIMINAR_PED){
-            Pedido temp = (Pedido)peticion.getDatos();
+            String temp = (String)peticion.getDatos();
             peticion.setDatos(adminPedidos.eliminarPedido(temp));
             return peticion;
         }else if(tipo==TPeticion.CONSULTAR_PED){
