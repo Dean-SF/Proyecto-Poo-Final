@@ -5,7 +5,7 @@
  */
 package usuario;
 
-import interfaz.ControladorVentanas;
+import cliente.interfaz.GestorVentanas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +45,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JTextField celularDato = new JTextField();
     
     private JLabel direccionLabel = new JLabel("Dirección:");
-    private JTextField direccionDato = new JTextField();
+    private JTextArea direccionDato = new JTextArea();
     
     //precio
     private JLabel precioLabel = new JLabel("Precio:");
@@ -87,7 +87,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         modalidad.setFont(new Font("Segoe UI",Font.PLAIN,20));
         modalidad.setBounds(400,450,300,30);
-        
+        modalidad.addItem("Express");
+        modalidad.addItem("En Local");
+        modalidad.addItem("Recoger");
         
         //Datos
         nombreLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
@@ -107,6 +109,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         direccionDato.setFont(new Font("Segoe UI",Font.PLAIN,20));
         direccionDato.setBounds(400,250,300,100);
+        direccionDato.setWrapStyleWord(true);
+        direccionDato.setLineWrap(true);
         
         //precio
         precioLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
@@ -165,9 +169,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         this.add(precioLabel);
         
-        this.add(express);
-        this.add(local);
-        this.add(recoger);
+        //this.add(express);
+        //this.add(local);
+        //this.add(recoger);
         this.add(agregar);
         this.add(pedir);
         this.add(eliminar);
@@ -179,7 +183,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
-            ControladorVentanas.volverAtras();
+            GestorVentanas.volverAtras();
         }
         if(e.getSource()== pedir){
             //GestorVentanas.abrirMenuRegistro();

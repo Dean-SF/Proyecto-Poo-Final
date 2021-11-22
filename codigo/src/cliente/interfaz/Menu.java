@@ -42,7 +42,7 @@ public class Menu extends JPanel implements ActionListener{
         if(e.getSource() == admin) {
             GestorVentanas.abrirAdminIngreso();
         } else if(e.getSource() == cliente) {
-
+            GestorVentanas.cliente();
         }
     }
 }

@@ -5,7 +5,7 @@
  */
 package usuario;
 
-import interfaz.ControladorVentanas;
+import cliente.interfaz.GestorVentanas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,7 +71,7 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
-            ControladorVentanas.volverAtras();
+            GestorVentanas.volverAtras();
         }
         if(e.getSource()== eliminar){
             //GestorVentanas.abrirMenuRegistro();
