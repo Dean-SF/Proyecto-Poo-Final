@@ -34,6 +34,7 @@ public class GestorVentanas{
     private static MenuCliente menuCliente = new MenuCliente();
     private static VentanaEliminarPedido eliminarPedido = new VentanaEliminarPedido();
     private static VentanaRealizarPedido realizarPedido = new VentanaRealizarPedido();
+    private static VentanaListaProductos verProductos = new VentanaListaProductos();
     
     public GestorVentanas() {
         // Inicializacion del historial
@@ -59,6 +60,7 @@ public class GestorVentanas{
         frame.add(menuCliente);
         frame.add(eliminarPedido);
         frame.add(realizarPedido);
+        frame.add(verProductos);
 
     }
 
@@ -133,6 +135,13 @@ public class GestorVentanas{
         menuCliente.setVisible(false);
         realizarPedido.setVisible(true);
         frame.setSize(realizarPedido.getSize());
+        frame.setLocationRelativeTo(null);
+    }
+    static public void verProductos() {
+        historial.push(verProductos);
+        menuCliente.setVisible(false);
+        verProductos.setVisible(true);
+        frame.setSize(verProductos.getSize());
         frame.setLocationRelativeTo(null);
     }
     
