@@ -69,7 +69,7 @@ public class AdminMenu extends JPanel implements ActionListener{
         } else if(e.getSource() == pedidos) {
             GestorVentanas.abrirPedidos();
         } else if(e.getSource() == estadisticas) {
-            
+             GestorVentanas.abrirEstadisticas();
         }
         
     }

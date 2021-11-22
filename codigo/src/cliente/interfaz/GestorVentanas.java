@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import cliente.interfaz.admin.AdminMenu;
 import cliente.interfaz.admin.Catalogo;
+import cliente.interfaz.admin.EstadisticasPedidos;
 import cliente.interfaz.admin.Ingreso;
 import cliente.interfaz.admin.ManejoProductos;
 import cliente.interfaz.admin.Pedidos;
@@ -29,6 +30,7 @@ public class GestorVentanas{
     private static Catalogo catalogo = new Catalogo();
     private static Pedidos pedidos = new Pedidos();
     private static ManejoProductos adminProductos = new ManejoProductos();
+    private static EstadisticasPedidos estadisticas = new EstadisticasPedidos();
     
     //ventanas de cliente
     private static MenuCliente menuCliente = new MenuCliente();
@@ -55,6 +57,7 @@ public class GestorVentanas{
         frame.add(catalogo);
         frame.add(pedidos);
         frame.add(adminProductos);
+        frame.add(estadisticas);
         
         frame.add(menuCliente);
         frame.add(eliminarPedido);
@@ -110,6 +113,14 @@ public class GestorVentanas{
         adminProductos.setVisible(true);
         historial.push(adminProductos);
         frame.setSize(adminProductos.getSize());
+        frame.setLocationRelativeTo(null);
+    }
+    
+    static public void abrirEstadisticas() {
+        administracion.setVisible(false);
+        estadisticas.setVisible(true);
+        historial.push(estadisticas);
+        frame.setSize(estadisticas.getSize());
         frame.setLocationRelativeTo(null);
     }
     
