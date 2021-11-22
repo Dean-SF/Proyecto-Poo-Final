@@ -32,6 +32,9 @@ public class Cliente {
             salida.writeObject(nuevaPeticion);
 
             Peticion retorno = (Peticion)entrada.readObject();
+            
+            servidor.close();
+
             return retorno;
 
         } catch (Exception e) {

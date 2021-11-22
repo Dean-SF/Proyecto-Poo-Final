@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,7 +15,6 @@ import controladores.TPeticion;
 import datos.Peticion;
 import datos.Producto;
 import datos.ProductoBuilder;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +35,7 @@ public class Catalogo extends JPanel implements ActionListener{
      private void cargarTabla(){
         try{
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
-            productos = (LinkedList)peticion.getDatos();
+            productos = (LinkedList<Producto>)peticion.getDatos();
             
             tabla.setVisible(true);
             DefaultTableModel modeloTabla = new DefaultTableModel(titulos, productos.size());
