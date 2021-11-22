@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package datos;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Esteban
  */
-public class Pedido {
+public class Pedido implements Serializable{
     private String codigo;
     private Usuario usuario;
     private int precio;

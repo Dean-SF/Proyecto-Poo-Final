@@ -3,6 +3,7 @@ package controladores;
 import datos.Peticion;
 import datos.Pedido;
 import datos.Producto;
+import java.util.ArrayList;
 
 /**
  *
@@ -61,6 +62,7 @@ public class ServerPetition {
             return peticion;
         }
         peticion.setDatos(null);
+        System.out.println("A");
         return peticion;
             
     }

@@ -1,10 +1,12 @@
 package datos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Esteban
  */
-public class Usuario {
+public class Usuario implements Serializable{
     private String nombre;
     private int celular;
     private String direccion;
