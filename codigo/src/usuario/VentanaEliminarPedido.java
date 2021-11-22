@@ -5,7 +5,10 @@
  */
 package usuario;
 
+import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
+import controladores.TPeticion;
+import datos.Peticion;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +30,24 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     private JButton eliminar = new JButton("Eliminar");
     
     private JButton volver = new JButton("Volver");
+    
+    private void eliminarPedido(){
+        String nombre = this.nombreDato.getText();
+        String numero = this.pedidoDato.getText();
+        if(nombre.isBlank()||numero.isBlank()){
+            JOptionPane.showMessageDialog(this, "Debe de colocar los datos","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PED,numero));
+        if(peticion.getDatos()==null){
+            JOptionPane.showMessageDialog(this, "El pedido no existe","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PED,numero));
+    }
+    
     public VentanaEliminarPedido() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
@@ -74,7 +95,7 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== eliminar){
-            //GestorVentanas.abrirMenuRegistro();
+            eliminarPedido();
         }
     }
 }
