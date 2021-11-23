@@ -5,12 +5,21 @@
  */
 package usuario;
 
+import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
+import controladores.TPeticion;
+import datos.KVPair;
+import datos.Peticion;
+import datos.Producto;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import javax.swing.*;
 
 /**
@@ -58,6 +67,56 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JButton eliminar = new JButton("Eliminar");
     private JButton pedir = new JButton("Pedir");   
     private JButton volver = new JButton("Cancelar");
+    
+    private LinkedList<Producto> productosLista = new LinkedList<Producto>();
+    private ArrayList<KVPair<Producto, Integer>> nuevos = new ArrayList<KVPair<Producto, Integer>>();
+    private Peticion pedirLista(){
+        return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
+    }
+    
+    private void cargarLista(){
+        Peticion peticion = pedirLista();
+        productosLista = (LinkedList<Producto>)peticion.getDatos();
+        for(int  i = 0; i<productosLista.size(); i++){
+            Producto actual = productosLista.get(i);
+            productos.addItem(actual.getNombre());
+        }
+        productos.addItem("Sergio");
+    }
+    
+    private void agregarProduto(){
+        String nombre = String.valueOf(productos.getSelectedItem());
+        Peticion peticion = pedirLista();
+        productosLista = (LinkedList<Producto>)peticion.getDatos();
+        for(int  i = 0; i<productosLista.size(); i++){
+            Producto actual = productosLista.get(i);
+            if(nombre.equals(actual.getNombre())){
+                int numero = Integer.parseInt(cantidad.getText());
+                if(nuevos.contains(new KVPair<Producto, Integer>(actual,0))){
+                    int pos = nuevos.indexOf(new KVPair<Producto, Integer>(actual,0));
+                    nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
+                    System.out.println(actual.getNombre()+":"+nuevos.get(pos).getValue());
+                    agregarSelecionados();
+                    return;
+                }
+                KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
+                System.out.println(actual.getNombre()+":"+numero);
+                agregarSelecionados();
+            }
+        }
+        /*int num = Integer.parseInt(cantidad.getText());
+        System.out.println(nombre+":"+num);
+        agregarSelecionados();*/
+    }
+    
+    private void agregarSelecionados(){
+        String[] lista  = new String[nuevos.size()];
+        for(int  i = 0; i<nuevos.size(); i++){
+            KVPair<Producto, Integer> actual = nuevos.get(i);
+            lista[i] = actual.getKey().getNombre()+"-"+actual.getKey();
+        }
+        productosSeleccionados.setListData(lista);
+    }
     
     public VentanaRealizarPedido() {
         // Titulo de la ventana
@@ -169,6 +228,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         this.add(cantidad);
         this.add(productosSeleccionadosLabel);
         this.add(productosSeleccionados);
+        cargarLista();
         
         this.add(caloriasLabel);
         this.add(modalidadLabel);
@@ -231,6 +291,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(this, "FAVOR INGRESAR UNA CANTIDAD MAYOR A 0","ERROR",
                 JOptionPane.ERROR_MESSAGE);
                 return;
+            }else{
+                agregarProduto();
             }
         }
         if(e.getSource()== eliminar){
