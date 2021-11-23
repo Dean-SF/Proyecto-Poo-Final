@@ -1,5 +1,6 @@
 package cliente.interfaz.admin;
 
+import cliente.Cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +16,13 @@ import javax.swing.SwingConstants;
 
 import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
+import controladores.TPeticion;
+import datos.Peticion;
+import datos.Producto;
+import datos.ProductoBuilder;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ManejoProductos extends JPanel implements ActionListener{
 
@@ -48,7 +56,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
     // Tabla
     private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
                                          "Piezas","Calorias","Calorias u/n","precio"};
-
+    private LinkedList<Producto> productos = new LinkedList<Producto>();
     private Object [][] vacio = {{null,null,null,null,null,null,null,null,null}};
     private JTable tabla = new JTable(vacio,columnas);
     private JScrollPane tablaScroll = new JScrollPane(tabla);
@@ -56,13 +64,52 @@ public class ManejoProductos extends JPanel implements ActionListener{
     private JButton agregar = new JButton("Agregar");
     private JButton modificar = new JButton("Modificar");
     private JButton eliminar = new JButton("Eliminar");
+    
+    /**
+     * Carga un JTable con los datos de los productos.
+     */
+     private void cargarTabla(){
+        try{
+            tabla.setVisible(false);
+            Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
+            productos = (LinkedList<Producto>)peticion.getDatos();
+            tabla.setVisible(true);
+            DefaultTableModel modeloTabla = new DefaultTableModel(columnas, productos.size());
+            for(int  i = 0; i<productos.size(); i++){
+                Producto actual = productos.get(i);
+                modeloTabla.setValueAt("n/a", i, 0);
+                modeloTabla.setValueAt(actual.getCodigo(), i, 1); 
+                modeloTabla.setValueAt(actual.getNombre(),i,2);
+                modeloTabla.setValueAt(actual.getDescripcion(), i, 3);
+                modeloTabla.setValueAt(actual.getPorcion().getSize(), i, 4);
+                modeloTabla.setValueAt(actual.getPorcion().getCantidad(), i, 5);
+                modeloTabla.setValueAt(actual.getPorcion().getCalorias(), i, 6);
+                modeloTabla.setValueAt((actual.getPorcion().getCalorias()/
+                        actual.getPorcion().getSize()), i, 7);
+                modeloTabla.setValueAt(actual.getPrecio(), i, 8);
+            }
+            tabla.setModel(modeloTabla);
 
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tabla.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
+            tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
+        } catch(Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    
     public ManejoProductos() {
         // Setup
         setSize(1280, 450);
         setVisible(false);
         setLayout(null);
-
+        
         lCodigo.setFont(Fonts.labels);
         lCodigo.setBounds(10, 10, 100, 35);
         add(lCodigo);
@@ -119,22 +166,27 @@ public class ManejoProductos extends JPanel implements ActionListener{
 
         tabla.setFont(Fonts.tabla);
         tabla.setEnabled(false);
+        tabla.setVisible(true);
         tablaScroll.setBounds(370, 10, 880, 280);
         add(tablaScroll);
+        cargarTabla();
 
         horizontal.setBounds(360, 305, 890, 10);
         add(horizontal);
 
         agregar.setFont(Fonts.botones);
         agregar.setBounds(470, 320, 100, 40);
+        agregar.addActionListener(this);
         add(agregar);
 
         modificar.setFont(Fonts.botones);
         modificar.setBounds(750, 320, 150, 40);
+        modificar.addActionListener(this);
         add(modificar);
 
         eliminar.setFont(Fonts.botones);
         eliminar.setBounds(1070, 320, 100, 40);
+        eliminar.addActionListener(this);
         add(eliminar);
 
         volver.setFont(Fonts.botones);
@@ -147,6 +199,12 @@ public class ManejoProductos extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
             GestorVentanas.volverAtras();
+        }else if(e.getSource() == eliminar){
+            cargarTabla();
+        }else if(e.getSource() == modificar){
+            cargarTabla();
+        }else if(e.getSource() == agregar){
+            cargarTabla();
         }
         
     }
