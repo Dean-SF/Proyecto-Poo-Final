@@ -10,5 +10,5 @@ package datos;
  * @author Esteban
  */
 public enum TRecoger {
-    
+    SITIO,EXPRESS,RECOGER;
 }

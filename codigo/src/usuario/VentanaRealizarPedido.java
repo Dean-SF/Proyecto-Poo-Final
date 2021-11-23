@@ -9,8 +9,11 @@ import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
 import controladores.TPeticion;
 import datos.KVPair;
+import datos.Pedido;
+import datos.PedidoBuilder;
 import datos.Peticion;
 import datos.Producto;
+import datos.TRecoger;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,6 +72,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     
     private LinkedList<Producto> productosLista = new LinkedList<Producto>();
     private ArrayList<KVPair<Producto, Integer>> nuevos = new ArrayList<KVPair<Producto, Integer>>();
+    int precioTotal = 0;
+    int caloriasTotal = 0;
     private Peticion pedirLista(){
         return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
     }
@@ -95,17 +100,44 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
                     int pos = nuevos.indexOf(new KVPair<Producto, Integer>(actual,0));
                     nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
                     System.out.println(actual.getNombre()+":"+nuevos.get(pos).getValue());
-                    agregarSelecionados();
-                    return;
+                }else{
+                    KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
+                    System.out.println(actual.getNombre()+":"+numero);
                 }
-                KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
-                System.out.println(actual.getNombre()+":"+numero);
                 agregarSelecionados();
+                setCantidadesMas(actual,numero);
             }
         }
         /*int num = Integer.parseInt(cantidad.getText());
         System.out.println(nombre+":"+num);
         agregarSelecionados();*/
+    }
+    
+    private void elimiarProducto(){
+        String nombre = String.valueOf(productos.getSelectedItem());
+        Peticion peticion = pedirLista();
+        productosLista = (LinkedList<Producto>)peticion.getDatos();
+        for(int  i = 0; i<productosLista.size(); i++){
+            Producto actual = productosLista.get(i);
+            if(nombre.equals(actual.getNombre())){
+                int numero = Integer.parseInt(cantidad.getText());
+                if(nuevos.contains(new KVPair<Producto, Integer>(actual,0))){
+                    int pos = nuevos.indexOf(new KVPair<Producto, Integer>(actual,0));
+                    if(numero>nuevos.get(pos).getValue()){
+                        JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
+                        JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    nuevos.remove(pos);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                agregarSelecionados();
+                setCantidadesMenos(actual,numero);
+            }
+        }
     }
     
     private void agregarSelecionados(){
@@ -115,6 +147,57 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             lista[i] = actual.getKey().getNombre()+"-"+actual.getKey();
         }
         productosSeleccionados.setListData(lista);
+    }
+    
+    private void setCantidadesMas(Producto actual,int num){
+        caloriasTotal += (actual.getPorcion().getCalorias())*num;
+        precioTotal += (actual.getPrecio())*num;
+        precioLabel.setText("Precio: "+precioTotal);
+        caloriasLabel.setText("Calorias"+caloriasTotal);
+    }
+    
+    private void setCantidadesMenos(Producto actual,int num){
+        caloriasTotal -= (actual.getPorcion().getCalorias())*num;
+        precioTotal -= (actual.getPrecio())*num;
+        precioLabel.setText("Precio: "+precioTotal);
+        caloriasLabel.setText("Calorias"+caloriasTotal);
+    }
+    
+    private void pedirPedido(){
+        String nombre = String.valueOf(nombreDato.getText());
+        String celular = String.valueOf(celularDato.getText());
+        String direccion = String.valueOf(direccionDato.getText());
+        String recogida = String.valueOf(modalidad.getSelectedItem());
+        Pedido nuevo;
+        if(recogida.equals("En Local")&&nombre.isBlank()){
+            JOptionPane.showMessageDialog(this, "Debe de agregar un nombre","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(recogida.equals("Recoger")&&(nombre.isBlank()||celular.isBlank())){
+            JOptionPane.showMessageDialog(this, "Debe de agregar un nombre y el celular","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(recogida.equals("Express")&&(nombre.isBlank()||celular.isBlank()||direccion.isBlank())){
+            JOptionPane.showMessageDialog(this, "Debe de agregar un nombre, el celular y la direccion","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        PedidoBuilder temp = new PedidoBuilder()
+                        .calorias(caloriasTotal)
+                        .codigo("Pensar a ver : D")
+                        .precio(precioTotal)
+                        .nombre(nombre);
+        TRecoger tipo = TRecoger.SITIO;
+        int celularInt = Integer.parseInt(celularDato.getText());
+        if(recogida.equals("Recoger")){
+            tipo = TRecoger.RECOGER;
+            temp.celular(celularInt);
+        }else if(recogida.equals("Express")){
+            tipo = TRecoger.EXPRESS;
+            temp.celular(celularInt).direccion(direccion);
+        }
+        nuevo = temp.recoger(tipo).buildPedido();
+        Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PED, nuevo));
     }
     
     public VentanaRealizarPedido() {
@@ -249,6 +332,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     }
     private void limitarCantidad(JTextField amount){
         amount.addKeyListener(new KeyAdapter(){
+            @Override
             public void keyTyped(KeyEvent e){
                 char c = e.getKeyChar();
                 if(!Character.isDigit(c)){//Hace que solo se puedan ingresar numeros
@@ -262,6 +346,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     }
     private void limitarNumero(JTextField amount){
         amount.addKeyListener(new KeyAdapter(){
+            @Override
             public void keyTyped(KeyEvent e){
                 char c = e.getKeyChar();
                 if(!Character.isDigit(c)){//Hace que solo se puedan ingresar numeros
