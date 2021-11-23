@@ -94,6 +94,7 @@ public class GestorVentanas{
 
     static public void abrirCatalogo() {
         administracion.setVisible(false);
+        menuCliente.setVisible(false);
         catalogo.setVisible(true);
         historial.push(catalogo);
         frame.setSize(catalogo.getSize());
