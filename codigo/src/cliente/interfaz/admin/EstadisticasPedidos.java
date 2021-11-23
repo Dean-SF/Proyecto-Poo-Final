@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Esteban
  */
+@SuppressWarnings("unchecked")
 public class EstadisticasPedidos extends JPanel implements ActionListener{
     private JLabel tituloH = new JLabel("Top 10");
     private JLabel tituloL = new JLabel("No pedidos");
@@ -58,7 +59,7 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
     /**
      * Carga un JTable con los datos de los productos.
      */
-     private void cargarTabla(){
+    private void cargarTabla(){
         try{
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
             productosH = (LinkedList<Producto>)peticion.getDatos();
@@ -67,6 +68,8 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
             tablaL.setVisible(true);
             DefaultTableModel modeloTablaH = new DefaultTableModel(titulosH, productosH.size());
             DefaultTableModel modeloTablaL = new DefaultTableModel(titulosL, productosL.size());
+            modeloTablaH.getRowCount();// borrar esto cuando se usen las tablas
+            modeloTablaL.getRowCount();
             /*for(int  i = 0; i<productos.size(); i++){
                 Producto actual = productos.get(i);
                 modeloTabla.setValueAt("n/a", i, 0);

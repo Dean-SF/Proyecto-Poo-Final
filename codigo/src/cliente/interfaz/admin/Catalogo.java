@@ -14,11 +14,11 @@ import cliente.interfaz.fonts.Fonts;
 import controladores.TPeticion;
 import datos.Peticion;
 import datos.Producto;
-import datos.ProductoBuilder;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("unchecked")
 public class Catalogo extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");
     private JButton graficar = new JButton("Graficar");

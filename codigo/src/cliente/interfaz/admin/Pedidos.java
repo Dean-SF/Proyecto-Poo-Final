@@ -2,7 +2,6 @@ package cliente.interfaz.admin;
 
 import cliente.Cliente;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,10 +18,11 @@ import datos.Producto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("unchecked")
 public class Pedidos extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");
     private JButton graficar = new JButton("Graficar");
@@ -35,7 +35,7 @@ public class Pedidos extends JPanel implements ActionListener{
     /**
      * Carga un JTable con los datos de los productos.
      */
-     private void cargarTabla(){
+    private void cargarTabla(){
         try{
             Pedido ned = new PedidoBuilder()
                     .codigo("RE-01")

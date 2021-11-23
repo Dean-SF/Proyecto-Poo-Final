@@ -10,8 +10,6 @@ import javax.swing.*;
  * @author DMV
  */
 public class Validaciones {
-    public Validaciones(){
-    }
     public static boolean validarCantidad(JTextField cantidad){
         if(cantidad.getText() == "0" || cantidad.getText().isBlank()){
             return false;
