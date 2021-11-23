@@ -19,6 +19,8 @@ import cliente.interfaz.fonts.Fonts;
 import controladores.TPeticion;
 import datos.Peticion;
 import datos.Producto;
+import datos.ProductoBuilder;
+
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -204,9 +206,95 @@ public class ManejoProductos extends JPanel implements ActionListener{
         }else if(e.getSource() == modificar){
             cargarTabla();
         }else if(e.getSource() == agregar){
-            cargarTabla();
+            agregarProducto();
+            
         }
         
     }
+
+    public void agregarProducto() {
+        if(!verifCodigo()) {
+            JOptionPane.showMessageDialog(this, "El codigo esta en mal formato","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int tamanno = verifNumPos(this.tamanno.getText());
+        int cantidad = verifNumPos(this.cantidad.getText());
+        int calorias = verifNumPos(this.calorias.getText());
+        int precio = verifNumPos(this.precio.getText());
+        if(tamanno == -1) {
+            JOptionPane.showMessageDialog(this, "Digite numeros en el tamaño","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if(cantidad == -1) {
+            JOptionPane.showMessageDialog(this, "Digite numeros en la cantidad","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if(calorias == -1) {
+            JOptionPane.showMessageDialog(this, "Digite numeros en las calorias","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if(precio == -1) {
+            JOptionPane.showMessageDialog(this, "Digite numeros en el precio","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Producto producto = new ProductoBuilder()
+                                .codigo(codigo.getText())
+                                .nombre(nombre.getText())
+                                .descripcion(descripcion.getText())
+                                .size(tamanno)
+                                .cantidad(cantidad)
+                                .calorias(calorias)
+                                .precio(precio)
+                                .buildProducto();
+        
+        Peticion peticion = new Peticion(TPeticion.AGREGAR_PROD, producto);                        
+        peticion = Cliente.enviarPeticion(peticion);
+        if((Boolean)peticion.getDatos()) {
+            JOptionPane.showMessageDialog(this, "Producto agregado","ENHORABUENA", JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+            vaciarEspacios();
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Producto no agregado, el codigo ya existe","ERROR", 
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+
+    private void vaciarEspacios() {
+        codigo.setText("");
+        nombre.setText("");
+        descripcion.setText("");
+        tamanno.setText("");
+        cantidad.setText("");
+        calorias.setText("");
+        precio.setText("");
+    }
+
+    private boolean verifCodigo() {
+        String codigo = this.codigo.getText();
+        if(codigo.length() != 7)
+            return false;
+        for(int i = 0; i < 3; i++) {
+            if(codigo.charAt(i) < 'A' || codigo.charAt(i) > 'Z')
+                return false;
+        }
+        if(codigo.charAt(3) != '-')
+            return false;
+        for(int i = 4; i < 7; i++) {
+            if(codigo.charAt(i) < '0' || codigo.charAt(i) > '9')
+                return false;
+        }
+        return true;
+    }
     
+    private int verifNumPos(String numero) {
+        try {
+            int temp = Integer.parseInt(numero);
+            if(temp > 0)
+                return temp;
+            else
+                return -1;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
 }
