@@ -17,8 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import javax.swing.*;
 
@@ -26,6 +24,7 @@ import javax.swing.*;
  *
  * @author DMV
  */
+@SuppressWarnings("unchecked")
 public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JLabel titulo = new JLabel("Solicitar Pedido");
     
