@@ -13,6 +13,7 @@ import controladores.ServerPetition;
 import controladores.TPeticion;
 import datos.IConstantes;
 import datos.Peticion;
+import servidor.interfaz.ServerInterface;
 
 /**
  *
@@ -49,7 +50,8 @@ public class Servidor {
                     conexion.close();
                     
                 } catch (Exception e) {
-                    System.out.println(e);
+                    // TODO Auto-generated catch block
+                    ServerInterface.mensajeDebug(e.toString());
                 }
            } 
         });
@@ -67,7 +69,7 @@ public class Servidor {
             apagado.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            ServerInterface.mensajeDebug(e.toString());
         }
         
     }
