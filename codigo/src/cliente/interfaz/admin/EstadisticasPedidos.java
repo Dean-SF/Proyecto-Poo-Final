@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,6 +13,7 @@ import datos.Peticion;
 import datos.Producto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -33,8 +34,8 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
     private JLabel tituloP = new JLabel("Porcentajes de pedidos");
     private JButton volver = new JButton("Volver");
     private JButton graficar = new JButton("Graficar");
-    private LinkedList<Producto> productosH = new LinkedList<Producto>();
-    private LinkedList<Producto> productosL = new LinkedList<Producto>();
+    private ArrayList<Producto> productosH = new ArrayList<Producto>();
+    private ArrayList<Producto> productosL = new ArrayList<Producto>();
     private String [] titulosH = {"Codigo","Nombre","Descripcion","Tipo"};
     private String [] titulosL = {"Codigo","Nombre","Tipo"};
     private Object [][] datosH = {{null,null,null,null}};
@@ -61,31 +62,30 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
      */
     private void cargarTabla(){
         try{
-            Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
-            productosH = (LinkedList<Producto>)peticion.getDatos();
-            productosL = (LinkedList<Producto>)peticion.getDatos();
+            Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.LISTA_TOP,""));
+            productosH = (ArrayList<Producto>)peticion.getDatos();
+            peticion = Cliente.enviarPeticion(new Peticion(TPeticion.LISTA_SIN_PEDIR,""));
+            productosL = (ArrayList<Producto>)peticion.getDatos();
             tablaH.setVisible(true);
             tablaL.setVisible(true);
             DefaultTableModel modeloTablaH = new DefaultTableModel(titulosH, productosH.size());
             DefaultTableModel modeloTablaL = new DefaultTableModel(titulosL, productosL.size());
-            modeloTablaH.getRowCount();// borrar esto cuando se usen las tablas
-            modeloTablaL.getRowCount();
-            /*for(int  i = 0; i<productos.size(); i++){
-                Producto actual = productos.get(i);
-                modeloTabla.setValueAt("n/a", i, 0);
-                modeloTabla.setValueAt(actual.getCodigo(), i, 1); 
-                modeloTabla.setValueAt(actual.getNombre(),i,2);
-                modeloTabla.setValueAt(actual.getDescripcion(), i, 3);
-                modeloTabla.setValueAt(actual.getPorcion().getSize(), i, 4);
-                modeloTabla.setValueAt(actual.getPorcion().getCantidad(), i, 5);
-                modeloTabla.setValueAt(actual.getPorcion().getCalorias(), i, 6);
-                modeloTabla.setValueAt((actual.getPorcion().getCalorias()/
-                        actual.getPorcion().getSize()), i, 7);
-                modeloTabla.setValueAt(actual.getPrecio(), i, 8);
+            for(int  i = 0; i<productosH.size(); i++){
+                Producto actual = productosH.get(i);
+                modeloTablaH.setValueAt(actual.getCodigo(), i, 0);
+                modeloTablaH.setValueAt(actual.getNombre(), i, 1); 
+                modeloTablaH.setValueAt(actual.getDescripcion(),i,2);
+                modeloTablaH.setValueAt("", i, 3);
             }
-            tabla.setModel(modeloTabla);
-
-            tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
+            for(int  i = 0; i<productosL.size(); i++){
+                Producto actual = productosL.get(i);
+                modeloTablaL.setValueAt(actual.getCodigo(), i, 0);
+                modeloTablaL.setValueAt(actual.getNombre(), i, 1); 
+                modeloTablaL.setValueAt("", i, 2);
+            }
+            tablaH.setModel(modeloTablaH);
+            tablaL.setModel(modeloTablaL);
+            /*tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(2).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
@@ -98,6 +98,18 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
             return;
         }
     }
+    private void cargarLabel(){
+        Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CANTIDADES,""));
+        int[] cantidades = (int[])peticion.getDatos();
+        int total = cantidades[0]+cantidades[1]+cantidades[2];
+        sPorcentaje.setText("Porcentaje: "+((cantidades[0]*100)/total));
+        sCantidad.setText("Cantidad: "+cantidades[0]);
+        rPorcentaje.setText("Porcentaje: "+((cantidades[1]*100)/total));
+        rCantidad.setText("Cantidad: "+cantidades[1]);
+        ePorcentaje.setText("Porcentaje: "+((cantidades[2]*100)/total));
+        eCantidad.setText("Cantidad: "+cantidades[2]);
+    }
+    
     
     /**
     * Constructoder de la ventana con los botones y el JTable.
@@ -191,6 +203,7 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
             GestorVentanas.volverAtras();
         }else if(e.getSource() == graficar){
             cargarTabla();
+            cargarLabel();
         }
     }
 }
