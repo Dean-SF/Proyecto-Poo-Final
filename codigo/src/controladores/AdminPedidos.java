@@ -49,23 +49,28 @@ public class AdminPedidos {
     }
     public ArrayList<Producto> topVendidos(){
         ArrayList<KVPair<Producto,Integer>> top = new ArrayList<KVPair<Producto,Integer>>();
-        ArrayList<Producto> tempL = new ArrayList<Producto>();
+        ArrayList<String> codigos = new  ArrayList<String>();
+        KVPair<Producto,Integer> tempPair;
         Pedido tempP;
         for(int i = 0; i<pedidos.size(); i++){
             tempP = pedidos.get(i);
             for(int j = 0; j<tempP.getProductos().size(); j++){
-                if(!(tempL.contains(tempP.getProductos().get(j).getKey()))){
+                tempPair = tempP.getProductos().get(j);
+                if(codigos.contains(tempPair.getKey().getCodigo())){
+                    int pos = codigos.indexOf(tempPair.getKey().getCodigo());
+                    top.get(pos).setValue(top.get(pos).getValue()+tempP.getProductos().get(j).getValue());
+                }else{
+                    codigos.add(tempPair.getKey().getCodigo());
+                    top.add(tempPair);
+                }
+                /*if(!(tempL.contains(tempP.getProductos().get(j).getKey()))){
                     tempL.add(tempP.getProductos().get(j).getKey());
                     top.add(tempP.getProductos().get(j));
                 }else{
                     int pos = tempL.indexOf(tempP.getProductos().get(j).getKey());
                     top.get(pos).setValue(top.get(pos).getValue()+tempP.getProductos().get(j).getValue());
-                }
+                }*/
             }
-        }
-        for(int i = 0; i<top.size(); i++){
-             System.out.println(top.get(i).getKey().getNombre());
-             System.out.println("New");
         }
         Collections.sort(top, new Comparator<KVPair<Producto,Integer>>(){
             @Override
@@ -87,31 +92,27 @@ public class AdminPedidos {
         return topFinal;
     }
     public ArrayList<Producto> noVendidos(LinkedList<Producto> productos){
-        ArrayList<Producto> produstoPedidos = new ArrayList<Producto>();
-        Pedido tempP;
-        Producto tempX;
+        ArrayList<Producto> vendidos = new ArrayList<Producto>();
+        ArrayList<String> codigos = new  ArrayList<String>();
+        Producto tempTotal;
+        Pedido tempSi;
         for(int i = 0; i<pedidos.size(); i++){
-            tempP = pedidos.get(i);
-            for(int j =0; j<tempP.getProductos().size();j++){
-                tempX = tempP.getProductos().get(j).getKey();
-                if(!(produstoPedidos.contains(tempX))){
-                    produstoPedidos.add(tempX);
+            tempSi = pedidos.get(i);
+            for(int j = 0; j<tempSi.getProductos().size(); j++){
+                tempTotal = tempSi.getProductos().get(j).getKey();
+                if(!codigos.contains(tempTotal.getCodigo())){
+                    codigos.add(tempTotal.getCodigo());
+                    vendidos.add(tempTotal);
                 }
             }
         }
-        /*ArrayList<Producto> siPedidos = new ArrayList<Producto>();
-        for(int i = 0; i<produstoPedidos.size(); i++){
-            siPedidos.add(produstoPedidos.get(i).getKey());
-        }*/
-        Producto tempI;
-        ArrayList<Producto> noPedidos = new ArrayList<Producto>();
-        for(int i = 0; i<productos.size(); i++){
-            tempI = productos.get(i);
-            if(!(produstoPedidos.contains(tempI))){
-                noPedidos.add(tempI);
+        ArrayList<Producto> noVendidos = new ArrayList<Producto>();
+        for(Producto actual : productos){
+            if(!codigos.contains(actual.getCodigo())){
+                noVendidos.add(actual);
             }
         }
-        return noPedidos;
+        return noVendidos;
     }
     public int[] cantidadTipos(){
         int[] cantidades = {0,0,0};
