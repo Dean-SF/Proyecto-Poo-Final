@@ -315,9 +315,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
         String codigo = this.codigo.getText();
         if(codigo.length() != 7)
             return false;
-        for(int i = 0; i < 3; i++) {
-            if(codigo.charAt(i) < 'A' || codigo.charAt(i) > 'Z')
-                return false;
+        String tipo = codigo.substring(0, 3);
+        if(!tipo.equals("ENT") && !tipo.equals("PRN") && !tipo.equals("PTR") && !tipo.equals("BEB")) {
+            return false;
         }
         if(codigo.charAt(3) != '-')
             return false;
