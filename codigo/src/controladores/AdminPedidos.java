@@ -14,9 +14,11 @@ import java.util.LinkedList;
  */
 public class AdminPedidos {
     private ArrayList<Pedido> pedidos;
+    private int cantidad;
 
     public AdminPedidos(){
         pedidos = new ArrayList<Pedido>();
+        cantidad = 0;
     }
     
     public boolean agregarPedido(Pedido pedido){
@@ -130,6 +132,6 @@ public class AdminPedidos {
         return cantidades;
     }
     public int cantidadPedidos(){
-        return pedidos.size();
+        return cantidad;
     }
 }
