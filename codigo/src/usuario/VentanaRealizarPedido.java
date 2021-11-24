@@ -153,6 +153,11 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
                         JOptionPane.ERROR_MESSAGE);
                         return;
         }
+        if(String.valueOf(cantidad.getText()).isBlank()){
+            JOptionPane.showMessageDialog(this, "Debe de colocar un numero a eliminar","Error",
+                        JOptionPane.ERROR_MESSAGE);
+                        return;
+        }
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
             if(nombre[1].equals(actual.getNombre())){

@@ -29,6 +29,14 @@ public class Catalogo extends JPanel implements ActionListener{
     private JTable tabla = new JTable(datos,titulos);
     private JScrollPane pane = new JScrollPane(tabla);
     
+    
+    private String saberTipo(String texto){
+        texto = texto.substring(0,3);
+        if(texto.equals("ENT") && !texto.equals("PRN") && !texto.equals("PTR") && !texto.equals("BEB")) {
+            return "";
+        }
+        return "";
+    }
     /**
      * Carga un JTable con los datos de los productos.
      */
