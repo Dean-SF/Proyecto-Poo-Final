@@ -3,6 +3,8 @@ import datos.KVPair;
 import datos.Pedido;
 import datos.Producto;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
@@ -46,14 +48,45 @@ public class AdminPedidos {
     }
     public ArrayList<Producto> topVendidos(){
         ArrayList<KVPair<Producto,Integer>> top = new ArrayList<KVPair<Producto,Integer>>();
-        int menor;
-        int posMenor;
         Pedido tempP;
         for(int i = 0; i<pedidos.size(); i++){
             tempP = pedidos.get(i);
             top.addAll(tempP.getProductos());
         }
-        
-        return null;
+        Collections.sort(top, new Comparator<KVPair<Producto,Integer>>(){
+            @Override
+            public int compare(KVPair<Producto,Integer> P1, KVPair<Producto,Integer> P2){
+                return Integer.valueOf(P1.getValue()).compareTo(P2.getValue());
+            }
+        });
+        ArrayList<Producto> topFinal = new ArrayList<Producto>();
+        for(int i = 0; i<top.size(); i++){
+            if(i==10){
+                break;
+            }
+            topFinal.add(top.get(i).getKey());
+        }
+        return topFinal;
+    }
+    public ArrayList<Producto> noVendidos(LinkedList<Producto> productos){
+        ArrayList<KVPair<Producto,Integer>> produstoPedidos = new ArrayList<KVPair<Producto,Integer>>();
+        Pedido tempP;
+        for(int i = 0; i<pedidos.size(); i++){
+            tempP = pedidos.get(i);
+            produstoPedidos.addAll(tempP.getProductos());
+        }
+        ArrayList<Producto> siPedidos = new ArrayList<Producto>();
+        for(int i = 0; i<produstoPedidos.size(); i++){
+            siPedidos.add(produstoPedidos.get(i).getKey());
+        }
+        Producto tempI;
+        ArrayList<Producto> noPedidos = new ArrayList<Producto>();
+        for(int i = 0; i<productos.size(); i++){
+            tempI = productos.get(i);
+            if(!(siPedidos.contains(tempI))){
+                noPedidos.add(tempI);
+            }
+        }
+        return noPedidos;
     }
 }
