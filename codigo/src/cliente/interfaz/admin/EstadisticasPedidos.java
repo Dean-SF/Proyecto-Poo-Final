@@ -101,6 +101,9 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
         Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CANTIDADES,""));
         int[] cantidades = (int[])peticion.getDatos();
         int total = cantidades[0]+cantidades[1]+cantidades[2];
+        if(total==0){
+            total=1;
+        }
         sPorcentaje.setText("Porcentaje: "+((cantidades[0]*100)/total));
         sCantidad.setText("Cantidad: "+cantidades[0]);
         rPorcentaje.setText("Porcentaje: "+((cantidades[1]*100)/total));
