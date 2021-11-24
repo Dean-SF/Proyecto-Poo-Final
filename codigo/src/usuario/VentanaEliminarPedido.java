@@ -32,22 +32,29 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");
     
     private void eliminarPedido(){
-        String nombre = this.nombreDato.getText();
-        String numero = this.pedidoDato.getText();
-        if(nombre.isBlank()||numero.isBlank()){
-            JOptionPane.showMessageDialog(this, "Debe de colocar los datos","Error",
+        try{
+            String nombre = this.nombreDato.getText();
+            String numero = this.pedidoDato.getText();
+            if(nombre.isBlank()||numero.isBlank()){
+                JOptionPane.showMessageDialog(this, "Debe de colocar los datos","Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PED,numero));
+            if(peticion.getDatos()==null){
+                JOptionPane.showMessageDialog(this, "El pedido no existe","Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PED,numero));
+            JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente","Aviso",
+            JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error inesperado","Error",
             JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
             return;
         }
-        Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PED,numero));
-        if(peticion.getDatos()==null){
-            JOptionPane.showMessageDialog(this, "El pedido no existe","Error",
-            JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PED,numero));
-        JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente","Aviso",
-        JOptionPane.INFORMATION_MESSAGE);
     }
     
     public VentanaEliminarPedido() {

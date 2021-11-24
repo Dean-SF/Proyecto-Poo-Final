@@ -86,13 +86,14 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     
     private LinkedList<Producto> productosLista = new LinkedList<Producto>();
     private ArrayList<KVPair<Producto, Integer>> nuevos = new ArrayList<KVPair<Producto, Integer>>();
-    int precioTotal = 0;
-    int caloriasTotal = 0;
+    private int precioTotal = 0;
+    private int caloriasTotal = 0;
     private Peticion pedirLista(){
         return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
     }
     
-    private void cargarLista(){
+    public void cargarLista(){
+        productos.removeAllItems();
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
         for(int  i = 0; i<productosLista.size(); i++){

@@ -144,6 +144,7 @@ public class GestorVentanas{
         historial.push(realizarPedido);
         menuCliente.setVisible(false);
         realizarPedido.setVisible(true);
+        realizarPedido.cargarLista();
         frame.setSize(realizarPedido.getSize());
         frame.setLocationRelativeTo(null);
     }
