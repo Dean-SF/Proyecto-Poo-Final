@@ -1,12 +1,14 @@
 package datos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Esteban
  * @param <K>
  * @param <V>
  */
-public class KVPair<K,V> {
+public class KVPair<K,V> implements Serializable{
     private K key;
     private V value;
     

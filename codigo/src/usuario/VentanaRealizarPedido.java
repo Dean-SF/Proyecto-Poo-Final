@@ -50,6 +50,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     
     private JLabel productosSeleccionadosLabel = new JLabel("Productos Seleccionados");
     private JList<String> productosSeleccionados = new JList<String>();
+    private JScrollPane pane = new JScrollPane(productosSeleccionados);
     
     private JLabel caloriasLabel = new JLabel("Calorias:");
 
@@ -99,24 +100,38 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             String temp = actual.getCodigo() + " " + actual.getNombre();
             productos.addItem(temp);
         }
-        productos.addItem("Sergio");
+    }
+    
+    private int dentroNuevos(String nombre){
+        Producto temp;
+        for(int i =0; i<nuevos.size();i++){
+            temp = nuevos.get(i).getKey();
+            if(temp.getNombre().equals(nombre)){
+                return i;
+            }
+        }
+        return -1;
     }
     
     private void agregarProduto(){
-        String nombre = String.valueOf(productos.getSelectedItem());
+        String texto = String.valueOf(productos.getSelectedItem());
+        String[] nombre = texto.split(" ");
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
-            if(nombre.equals(actual.getNombre())){
+            //System.out.println(nombre[1]);
+            //System.out.println(actual.getNombre());
+            if(nombre[1].equals(actual.getNombre())){
                 int numero = Integer.parseInt(cantidad.getText());
-                if(nuevos.contains(new KVPair<Producto, Integer>(actual,0))){
-                    int pos = nuevos.indexOf(new KVPair<Producto, Integer>(actual,0));
+                if(dentroNuevos(nombre[1])!=-1){
+                    int pos = dentroNuevos(nombre[1]);
                     nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
-                    System.out.println(actual.getNombre()+":"+nuevos.get(pos).getValue());
+                    //System.out.println(actual.getNombre()+":"+nuevos.get(pos).getValue());
                 }else{
                     KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
-                    System.out.println(actual.getNombre()+":"+numero);
+                    nuevos.add(temp);
+                    //System.out.println(actual.getNombre()+":"+numero);
                 }
                 agregarSelecionados();
                 setCantidadesMas(actual,numero);
@@ -128,21 +143,26 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     }
     
     private void eliminarProducto(){
-        String nombre = String.valueOf(productos.getSelectedItem());
+        String texto = String.valueOf(productos.getSelectedItem());
+        String[] nombre = texto.split(" ");
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
-            if(nombre.equals(actual.getNombre())){
+            if(nombre[1].equals(actual.getNombre())){
                 int numero = Integer.parseInt(cantidad.getText());
-                if(nuevos.contains(new KVPair<Producto, Integer>(actual,0))){
-                    int pos = nuevos.indexOf(new KVPair<Producto, Integer>(actual,0));
+                if(dentroNuevos(nombre[1])!=-1){
+                    int pos = dentroNuevos(nombre[1]);
                     if(numero>nuevos.get(pos).getValue()){
                         JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
                         JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    nuevos.remove(pos);
+                    if(numero==nuevos.get(pos).getValue()){
+                        nuevos.remove(pos);
+                    }else{
+                        nuevos.get(pos).setValue(nuevos.get(pos).getValue()-numero);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -158,7 +178,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         String[] lista  = new String[nuevos.size()];
         for(int  i = 0; i<nuevos.size(); i++){
             KVPair<Producto, Integer> actual = nuevos.get(i);
-            lista[i] = actual.getKey().getNombre()+"-"+actual.getKey();
+            lista[i] = actual.getKey().getNombre()+"-"+actual.getValue();
+            System.out.println(actual.getKey().getNombre());
         }
         productosSeleccionados.setListData(lista);
     }
@@ -167,22 +188,27 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         caloriasTotal += (actual.getPorcion().getCalorias())*num;
         precioTotal += (actual.getPrecio())*num;
         precioLabel.setText("Precio: "+precioTotal);
-        caloriasLabel.setText("Calorias"+caloriasTotal);
+        caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
     
     private void setCantidadesMenos(Producto actual,int num){
         caloriasTotal -= (actual.getPorcion().getCalorias())*num;
         precioTotal -= (actual.getPrecio())*num;
         precioLabel.setText("Precio: "+precioTotal);
-        caloriasLabel.setText("Calorias"+caloriasTotal);
+        caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
     
     private void pedirPedido(){
+        if(nuevos.size()==0){
+            JOptionPane.showMessageDialog(this, "Debe de elegir un producto","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String nombre = String.valueOf(nombreDato.getText());
         String celular = String.valueOf(celularDato.getText());
         String direccion = String.valueOf(direccionDato.getText());
         String recogida = String.valueOf(modalidad.getSelectedItem());
-        Pedido nuevo;
+        Pedido nuevo = new Pedido();
         if(recogida.equals("En Local")&&nombre.isBlank()){
             JOptionPane.showMessageDialog(this, "Debe de agregar un nombre","Error",
             JOptionPane.ERROR_MESSAGE);
@@ -196,22 +222,34 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             JOptionPane.ERROR_MESSAGE);
             return;
         }
+        Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CANTIDAD_PEDIDOS, ""));
+        int codigo = (int)peticion.getDatos();
         PedidoBuilder temp = new PedidoBuilder()
                         .calorias(caloriasTotal)
-                        .codigo("Pensar a ver : D")
+                        .codigo(""+codigo)
                         .precio(precioTotal)
                         .nombre(nombre);
         TRecoger tipo = TRecoger.SITIO;
-        int celularInt = Integer.parseInt(celularDato.getText());
+        int celularInt = 0;
+        if(!celular.isBlank()){
+            celularInt = Integer.parseInt(celularDato.getText());
+        }
         if(recogida.equals("Recoger")){
             tipo = TRecoger.RECOGER;
-            temp.celular(celularInt);
+            temp.celular(celularInt)
+                .precio(((double)precioTotal+((double)precioTotal*nuevo.getPorRecoger())));
         }else if(recogida.equals("Express")){
             tipo = TRecoger.EXPRESS;
-            temp.celular(celularInt).direccion(direccion);
+            temp.celular(celularInt).direccion(direccion)
+                                    .precio(((double)precioTotal+((double)precioTotal*
+                                    nuevo.getPorRecoger())+nuevo.getPorExpress()));
         }
         nuevo = temp.recoger(tipo).buildPedido();
+        nuevo.setProductos(nuevos);
         Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PED, nuevo));
+        JOptionPane.showMessageDialog(this, "Se realizo el pedido con un costo total de: "+
+                nuevo.getPrecio()+", y su coddigo es '"+codigo+"'.","Aviso",
+            JOptionPane.INFORMATION_MESSAGE);
     }
     
     public VentanaRealizarPedido() {
@@ -238,7 +276,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         productosSeleccionadosLabel.setBounds(50,270,300,30);
         
         productosSeleccionados.setFont(new Font("Segoe UI",Font.PLAIN,20));
-        productosSeleccionados.setBounds(50,320,300,30);
+        productosSeleccionados.setEnabled(false);
+        pane.setBounds(50,320,300,100);
         
         caloriasLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
         caloriasLabel.setBounds(50,420,300,30);
@@ -330,7 +369,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         this.add(cantidadLabel);
         this.add(cantidad);
         this.add(productosSeleccionadosLabel);
-        this.add(productosSeleccionados);
+        this.add(pane);
         cargarLista();
         
         this.add(caloriasLabel);
@@ -396,6 +435,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
+            productosSeleccionados.setListData(new String[0]);
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== pedir){
@@ -417,6 +457,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         }
         if(e.getSource()== eliminar){
+            System.out.println("1");
             eliminarProducto();
         }
         if(e.getSource()== express){

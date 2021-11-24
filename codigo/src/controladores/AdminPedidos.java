@@ -105,4 +105,7 @@ public class AdminPedidos {
         }
         return cantidades;
     }
+    public int cantidadPedidos(){
+        return pedidos.size();
+    }
 }

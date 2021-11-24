@@ -9,7 +9,7 @@ public class PedidoBuilder {
     private String nombre;
     private int celular = 0;
     private String direccion = "N/A";
-    private int precio;
+    private double precio;
     private int calorias;
     private TRecoger recoger; 
     
@@ -34,7 +34,7 @@ public class PedidoBuilder {
         this.direccion = direccion;
         return this;
     }
-    public PedidoBuilder precio(int precio){
+    public PedidoBuilder precio(double precio){
         this.precio = precio;
         return this;
     }

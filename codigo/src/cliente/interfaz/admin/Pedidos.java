@@ -37,20 +37,22 @@ public class Pedidos extends JPanel implements ActionListener{
      */
     private void cargarTabla(){
         try{
-            Pedido ned = new PedidoBuilder()
+            /*Pedido ned = new PedidoBuilder()
                     .codigo("RE-01")
                     .nombre("Perrito caliente")
                     .precio(3500)
                     .calorias(300)
-                    .buildPedido();
-            Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PED,ned));
+                    .buildPedido();*/
+            //Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PED,ned));
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PED,""));
             pedidos = (ArrayList<Pedido>)peticion.getDatos();
             tabla.setVisible(true);
             DefaultTableModel modeloTabla = new DefaultTableModel(titulos, pedidos.size());
             String productosD;
             ArrayList<KVPair<Producto, Integer>> listaProductos;
+            System.out.println(pedidos.size());
             for(int  i = 0; i<pedidos.size(); i++){
+                System.out.println(i);
                 Pedido actual = pedidos.get(i);
                 productosD = "";
                 listaProductos = actual.getProductos();
@@ -58,12 +60,12 @@ public class Pedidos extends JPanel implements ActionListener{
                 int cantidad;
                 productosD += "[";
                 for(int j = 0; j<listaProductos.size(); j++){
-                    temp = listaProductos.get(i).getKey();
-                    cantidad = listaProductos.get(i).getValue();
+                    temp = listaProductos.get(j).getKey();
+                    cantidad = listaProductos.get(j).getValue();
                     productosD += "{"+temp.getNombre()+"("+temp.getCodigo()+
                             ") Cantidad: "+cantidad+"}";
                     if(j<listaProductos.size()-1){
-                        productosD+=", ";
+                        productosD+=", \n";
                     }else{
                         productosD+="]";
                     }
@@ -74,8 +76,9 @@ public class Pedidos extends JPanel implements ActionListener{
                 modeloTabla.setValueAt(actual.getPrecio(), i, 3);
                 modeloTabla.setValueAt(actual.getCalorias(), i, 4);
             }
+            System.out.println("1");
             tabla.setModel(modeloTabla);
-
+            System.out.println("1");
             tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(2).setPreferredWidth(20);

@@ -12,16 +12,18 @@ import java.util.ArrayList;
  * @author Esteban
  */
 public class Pedido implements Serializable{
+    private static double porRecoger = 0.1;
+    private static double porExpress = 500;
     private String codigo;
     private Usuario usuario;
-    private int precio;
+    private double precio;
     private int calorias;
     private TRecoger recoger;
     private ArrayList<KVPair<Producto, Integer>> productos;
 
     public Pedido(){};
     
-    public Pedido(String codigo, Usuario usuario, int precio, int calorias, TRecoger recoger) {
+    public Pedido(String codigo, Usuario usuario, double precio, int calorias, TRecoger recoger) {
         this.codigo = codigo;
         this.usuario = usuario;
         this.precio = precio;
@@ -54,6 +56,14 @@ public class Pedido implements Serializable{
         this.productos = productos;
     }
 
+    public static void setPorRecoger(double porRecoger) {
+        Pedido.porRecoger = porRecoger;
+    }
+
+    public static void setPorExpress(double porExpress) {
+        Pedido.porExpress = porExpress;
+    }
+    
     public String getCodigo() {
         return codigo;
     }
@@ -62,7 +72,7 @@ public class Pedido implements Serializable{
         return usuario;
     }
     
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
@@ -74,6 +84,14 @@ public class Pedido implements Serializable{
         return recoger;
     }
 
+    public double getPorRecoger() {
+        return porRecoger;
+    }
+
+    public double getPorExpress() {
+        return porExpress;
+    }
+    
     public ArrayList<KVPair<Producto, Integer>> getProductos() {
         return productos;
     }
