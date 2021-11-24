@@ -77,6 +77,7 @@ public class ServerPetition {
             String [] partes  = credenciales.split("-"); 
             boolean correcto = VerificadorLogin.validarAdm(partes[0], partes[1]);
             peticion.setDatos(correcto);
+            return peticion;
         }else if(tipo==TPeticion.CANTIDAD_PEDIDOS){
             System.out.println("2000");
             peticion.setDatos(adminPedidos.cantidadPedidos());
