@@ -113,7 +113,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         agregarSelecionados();*/
     }
     
-    private void elimiarProducto(){
+    private void eliminarProducto(){
         String nombre = String.valueOf(productos.getSelectedItem());
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
@@ -368,6 +368,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(this, "FAVOR INGRESAR UN NOMBRE","ERROR",
                 JOptionPane.ERROR_MESSAGE);
                 return;
+            }else{
+                pedirPedido();
             }
         }
         if(e.getSource()== agregar){
@@ -380,7 +382,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         }
         if(e.getSource()== eliminar){
-            //GestorVentanas.abrirMenuRegistro();
+            eliminarProducto();
         }
         if(e.getSource()== express){
             //GestorVentanas.abrirMenuRegistro();

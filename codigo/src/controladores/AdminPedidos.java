@@ -1,6 +1,9 @@
 package controladores;
+import datos.KVPair;
 import datos.Pedido;
+import datos.Producto;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -40,5 +43,17 @@ public class AdminPedidos {
     }
     public ArrayList<Pedido> getPedidos(){
         return pedidos;
+    }
+    public ArrayList<Producto> topVendidos(){
+        ArrayList<KVPair<Producto,Integer>> top = new ArrayList<KVPair<Producto,Integer>>();
+        int menor;
+        int posMenor;
+        Pedido tempP;
+        for(int i = 0; i<pedidos.size(); i++){
+            tempP = pedidos.get(i);
+            top.addAll(tempP.getProductos());
+        }
+        
+        return null;
     }
 }
