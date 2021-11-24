@@ -19,9 +19,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import org.imgscalr.Scalr;
 
 /**
  *
@@ -43,7 +53,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     
     private JLabel caloriasLabel = new JLabel("Calorias:");
 
-    private JLabel imagen = new JLabel("a");
+    private JLabel imagen = new JLabel();
     
     //modalidad
     private JLabel modalidadLabel = new JLabel("Modo de Solicitud");
@@ -67,7 +77,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JLabel precioLabel = new JLabel("Precio:");
     
     //botones
-    private JButton mImagen = new JButton("Mostrar Imagen");
+    private JButton mImagen = new JButton("Imagen");
     private JButton agregar = new JButton("Agregar");  
     private JButton eliminar = new JButton("Eliminar");
     private JButton pedir = new JButton("Pedir");   
@@ -86,7 +96,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         productosLista = (LinkedList<Producto>)peticion.getDatos();
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
-            productos.addItem(actual.getNombre());
+            String temp = actual.getCodigo() + " " + actual.getNombre();
+            productos.addItem(temp);
         }
         productos.addItem("Sergio");
     }
@@ -232,7 +243,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         caloriasLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
         caloriasLabel.setBounds(50,420,300,30);
 
-        imagen.setBounds(50,460,300,300);
+        imagen.setBounds(50,400,300,300);
         
         
         //modalidad
@@ -285,14 +296,14 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         recoger.addActionListener(this);
         
         agregar.setFont(new Font("Segoe UI",Font.PLAIN,15));
-        agregar.setBounds(50,220, 100, 25);
+        agregar.setBounds(50,220, 90, 25);
         agregar.addActionListener(this);
         
         eliminar.setFont(new Font("Segoe UI",Font.PLAIN,15));
-        eliminar.setBounds(160, 220, 100, 25);
+        eliminar.setBounds(150, 220, 90, 25);
         eliminar.addActionListener(this);
         
-        mImagen.setBounds(260, 220, 100, 25);
+        mImagen.setBounds(250, 220, 90, 25);
         mImagen.setFont(new Font("Segoe UI",Font.PLAIN,15));
         mImagen.addActionListener(this);
 
@@ -370,6 +381,18 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         });
     }
+
+    private void mostrarImagen() throws IOException {
+        String codigo = (String)productos.getSelectedItem();
+        codigo = codigo.substring(0, 7);
+        Peticion retorno = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PROD, codigo));
+        File archivo = ((Producto)retorno.getDatos()).getImagen();
+        BufferedImage img = ImageIO.read(archivo);
+        BufferedImage newImg = Scalr.resize(img,190);
+        ImageIcon labelImage = new ImageIcon(newImg);
+        imagen.setIcon(labelImage);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
@@ -404,6 +427,13 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         if(e.getSource()== recoger){
             //GestorVentanas.abrirMenuRegistro();
+        }
+        if(e.getSource() == mImagen) {
+            try {
+                mostrarImagen();
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(this,"Ocurrio el error: " + e1,"ERROR",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

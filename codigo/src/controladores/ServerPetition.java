@@ -31,8 +31,8 @@ public class ServerPetition {
             peticion.setDatos(adminProductos.eliminarProducto(temp.getCodigo()));
             return peticion;
         }else if(tipo==TPeticion.CONSULTAR_PROD){
-            Producto temp = (Producto)peticion.getDatos();
-            peticion.setDatos((adminProductos.consultarProducto(temp.getCodigo())!=null));
+            String temp = (String)peticion.getDatos();
+            peticion.setDatos(adminProductos.consultarProducto(temp));
             return peticion;
         }else if(tipo==TPeticion.MODIFICAR_PROD){
             Object temp[] = (Object[])peticion.getDatos();
