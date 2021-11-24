@@ -1,5 +1,7 @@
 package controladores;
 
+import java.io.File;
+
 import cliente.interfaz.admin.VerificadorLogin;
 import datos.Peticion;
 import datos.Pedido;
@@ -40,9 +42,12 @@ public class ServerPetition {
             if(temp[2] instanceof Integer) {
                 peticion.setDatos(adminProductos.modificarProducto((String)temp[0], 
                                                                   (TModificacion)temp[1], (Integer)temp[2]));
-            } else {
+            } else if(temp[2] instanceof String) {
                 peticion.setDatos(adminProductos.modificarProducto((String)temp[0], 
                                                                   (TModificacion)temp[1], (String)temp[2]));
+            } else {
+                peticion.setDatos(adminProductos.modificarProducto((String)temp[0], 
+                                                                  (TModificacion)temp[1], (File)temp[2]));
             }
             return peticion;
         }else if(tipo==TPeticion.AGREGAR_PED){
@@ -83,6 +88,14 @@ public class ServerPetition {
             return peticion;
         }else if(tipo==TPeticion.CANTIDAD_PEDIDOS){
             peticion.setDatos(adminPedidos.cantidadPedidos());
+            return peticion;
+        }else if(tipo==TPeticion.MODEXPRESS) {
+            int express = (Integer)peticion.getDatos();
+            Pedido.setPorExpress(express);
+            return peticion;
+        }else if(tipo==TPeticion.MODRECOGER) {
+            int recoger = (Integer)peticion.getDatos();
+            Pedido.setPorRecoger(recoger);
             return peticion;
         }
         peticion.setDatos(null);

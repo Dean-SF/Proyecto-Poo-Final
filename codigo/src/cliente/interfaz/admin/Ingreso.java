@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
+@SuppressWarnings("deprecation")
 public class Ingreso extends JPanel implements ActionListener{
     private static JButton volver = new JButton("Volver");
     private static JLabel titulo = new JLabel("Inicio de Sesion");

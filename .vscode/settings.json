@@ -1,6 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "codigo/librerias/imgscalr-lib-4.2.jar"
-    ]
-}

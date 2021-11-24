@@ -1,5 +1,6 @@
 package controladores;
 
+import java.io.File;
 import java.util.LinkedList;
 import datos.Producto;
 
@@ -69,6 +70,18 @@ public class AdminProductos {
             return false;
 
         }
+    }
+
+    public boolean modificarProducto(String codigo,TModificacion tipo, File imagen) {
+        Producto producto = consultarProducto(codigo);
+        if(producto == null) {
+            return false;
+        }
+        if(tipo == TModificacion.IMAGEN) {
+            producto.setImagen(imagen);
+            return true;
+        }
+        return false;
     }
 
     public boolean eliminarProducto(String codigo) {
