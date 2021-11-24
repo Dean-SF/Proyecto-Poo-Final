@@ -216,6 +216,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         if(e.getSource() == volver) {
             GestorVentanas.volverAtras();
         }else if(e.getSource() == eliminar){
+            eliminarProducto();
             cargarTabla();
         }else if(e.getSource() == modificar){
             cargarTabla();
@@ -229,6 +230,22 @@ public class ManejoProductos extends JPanel implements ActionListener{
             System.out.println(imagen.getSelectedFile());
         }
         
+    }
+
+    public void eliminarProducto() {
+        if(!verifCodigo()) {
+            JOptionPane.showMessageDialog(this, "El codigo esta en mal formato","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Peticion retorno = Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PROD, codigo.getText()));
+        if((Boolean)retorno.getDatos()) {
+            JOptionPane.showMessageDialog(this, "Producto eliminado correctamente","ENHORABUENA",
+            JOptionPane.INFORMATION_MESSAGE);
+            vaciarEspacios();
+        } else {
+            JOptionPane.showMessageDialog(this, "Producto no eliminado, verifique el codigo introducido",
+            "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void agregarProducto() {
