@@ -19,7 +19,10 @@ public class ServerPetition {
     
     public Peticion serverPeticion(Peticion peticion){
         TPeticion tipo = peticion.getPeticion();
-        if(tipo==TPeticion.AGREGAR_PROD){
+        if(tipo == TPeticion.ESTA_ENCENDIDO) {
+            peticion.setDatos(true);
+            return peticion;
+        }else if(tipo==TPeticion.AGREGAR_PROD){
             Producto temp = (Producto)peticion.getDatos();
             peticion.setDatos(adminProductos.agregarProducto(temp));
             return peticion;
