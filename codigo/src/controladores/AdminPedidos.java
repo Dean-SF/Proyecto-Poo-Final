@@ -2,6 +2,7 @@ package controladores;
 import datos.KVPair;
 import datos.Pedido;
 import datos.Producto;
+import datos.TRecoger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -88,5 +89,20 @@ public class AdminPedidos {
             }
         }
         return noPedidos;
+    }
+    public int[] cantidadTipos(){
+        int[] cantidades = {0,0,0};
+        Pedido temp;
+        for(int i = 0; i<pedidos.size(); i++){
+            temp = pedidos.get(i);
+            if(temp.getRecoger()==TRecoger.SITIO){
+                cantidades[0] +=1;
+            }else if(temp.getRecoger()==TRecoger.RECOGER){
+                cantidades[1] +=1;
+            }else if(temp.getRecoger()==TRecoger.EXPRESS){
+                cantidades[2] +=1;
+            }
+        }
+        return cantidades;
     }
 }
