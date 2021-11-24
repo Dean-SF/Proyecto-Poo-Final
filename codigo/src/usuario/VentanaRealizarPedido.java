@@ -148,6 +148,11 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         String[] nombre = texto.split(" ");
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
+        if(nuevos.size()==0){
+            JOptionPane.showMessageDialog(this, "La lista de productos selecionados esta vacia","Error",
+                        JOptionPane.ERROR_MESSAGE);
+                        return;
+        }
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
             if(nombre[1].equals(actual.getNombre())){
