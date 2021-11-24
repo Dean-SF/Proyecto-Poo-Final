@@ -250,6 +250,26 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         JOptionPane.showMessageDialog(this, "Se realizo el pedido con un costo total de: "+
                 nuevo.getPrecio()+", y su coddigo es '"+codigo+"'.","Aviso",
             JOptionPane.INFORMATION_MESSAGE);
+        reset();
+    }
+    
+    public void reset(){
+        nuevos.clear();
+        nombreDato.setText("");
+        cantidad.setText("");
+        precioLabel.setText("Precio: ");
+        caloriasLabel.setText("Calorias: ");
+        precioTotal = 0;
+        caloriasTotal = 0;
+        String celular = String.valueOf(celularDato.getText());
+        String direccion = String.valueOf(direccionDato.getText());
+        if(!celular.isBlank()){
+            celularDato.setText("");
+        }
+        if(!direccion.isBlank()){
+            direccionDato.setText("");
+        }
+        agregarSelecionados();
     }
     
     public VentanaRealizarPedido() {
@@ -436,6 +456,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
             productosSeleccionados.setListData(new String[0]);
+            reset();
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== pedir){
@@ -457,7 +478,6 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         }
         if(e.getSource()== eliminar){
-            System.out.println("1");
             eliminarProducto();
         }
         if(e.getSource()== express){
