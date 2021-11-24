@@ -5,11 +5,16 @@
 package cliente;
 
 import cliente.interfaz.GestorVentanas;
+import controladores.TPeticion;
 import datos.IConstantes;
 import datos.Peticion;
+
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +22,13 @@ import java.net.Socket;
  */
 public class Cliente {
     public static void main(String[] args) {
-        new GestorVentanas();
+        Peticion encendido = new Peticion(TPeticion.ESTA_ENCENDIDO, null);
+        if(enviarPeticion(encendido) != null) {
+            new GestorVentanas();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor","ERROR",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public static Peticion enviarPeticion(Peticion peticion) {
@@ -37,8 +48,9 @@ public class Cliente {
 
             return retorno;
 
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (IOException e) {
+            return null;
+        } catch (ClassNotFoundException e) {
             return null;
         }
     }
