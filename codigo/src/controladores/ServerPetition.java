@@ -1,5 +1,6 @@
 package controladores;
 
+import cliente.interfaz.admin.VerificadorLogin;
 import datos.Peticion;
 import datos.Pedido;
 import datos.Producto;
@@ -70,6 +71,12 @@ public class ServerPetition {
             return peticion;
         }else if(tipo==TPeticion.CANTIDADES){
             peticion.setDatos(adminPedidos.cantidadTipos());
+            return peticion;
+        }else if(tipo == TPeticion.INGRESAR){
+            String credenciales = (String) peticion.getDatos();
+            String [] partes  = credenciales.split("-"); 
+            boolean correcto = VerificadorLogin.validarAdm(partes[0], partes[1]);
+            peticion.setDatos(correcto);
             return peticion;
         }
         peticion.setDatos(null);

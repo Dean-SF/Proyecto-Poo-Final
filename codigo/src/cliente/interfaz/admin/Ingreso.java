@@ -1,5 +1,6 @@
 package cliente.interfaz.admin;
 
+import cliente.Cliente;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,9 +8,13 @@ import javax.swing.JTextField;
 
 import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
+import controladores.TPeticion;
+import datos.Peticion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class Ingreso extends JPanel implements ActionListener{
     private static JButton volver = new JButton("Volver");
@@ -17,7 +22,7 @@ public class Ingreso extends JPanel implements ActionListener{
     private static JLabel nombre = new JLabel("Nombre:");
     private static JTextField fNombre = new JTextField();
     private static JLabel clave = new JLabel("Clave:");
-    private static JTextField fClave = new JTextField();
+    private static JPasswordField fClave = new JPasswordField();
     private static JButton ingresar = new JButton("Ingresar");
 
     public Ingreso() {
@@ -60,7 +65,22 @@ public class Ingreso extends JPanel implements ActionListener{
         if(e.getSource() == volver) {
             GestorVentanas.volverAtras();
         } else if(e.getSource() == ingresar) {
-            GestorVentanas.abrirAdminMenu(); // cambiar esto para comprobar el inicio de sesion
+            if(fNombre.getText().isBlank() || fClave.getText().isBlank()){
+                JOptionPane.showMessageDialog(this, "DIGITE UN USUARIO Y CONTRASEÑA","ERROR",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }else{
+                Peticion login = new Peticion(TPeticion.INGRESAR, fNombre.getText()+"-"+fClave.getText());
+                Cliente conexion = new Cliente(login);
+                boolean respuesta = (boolean) conexion.getRespuestaServer();
+                if(respuesta){
+                    GestorVentanas.abrirAdminMenu(); // cambiar esto para comprobar el inicio de sesion
+                }else{
+                    JOptionPane.showMessageDialog(this, "USUARIO O CONTRASEÑA INCORRECTOS","ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
         }
     }
 }
