@@ -54,8 +54,8 @@ public class ServerPetition {
             peticion.setDatos(adminPedidos.eliminarPedido(temp));
             return peticion;
         }else if(tipo==TPeticion.CONSULTAR_PED){
-            Pedido temp = (Pedido)peticion.getDatos();
-            peticion.setDatos((adminPedidos.consultarPedido(temp.getCodigo())!=null));
+            String temp = (String)peticion.getDatos();
+            peticion.setDatos(adminPedidos.consultarPedido(temp));
             return peticion;
         }else if(tipo==TPeticion.CONSULTAR_LISTA_PED){
             peticion.setDatos(adminPedidos.getPedidos());

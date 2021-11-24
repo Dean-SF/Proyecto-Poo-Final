@@ -33,20 +33,26 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     
     private void eliminarPedido(){
         try{
-            String nombre = this.nombreDato.getText();
-            String numero = this.pedidoDato.getText();
+            String nombre = String.valueOf(nombreDato.getText());
+            String numero = String.valueOf(pedidoDato.getText());
+            System.out.println("1");
             if(nombre.isBlank()||numero.isBlank()){
                 JOptionPane.showMessageDialog(this, "Debe de colocar los datos","Error",
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            System.out.println("2");
+            System.out.println(numero);
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PED,numero));
+            System.out.println("3");
             if(peticion.getDatos()==null){
                 JOptionPane.showMessageDialog(this, "El pedido no existe","Error",
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            System.out.println("4");
             Cliente.enviarPeticion(new Peticion(TPeticion.ELIMINAR_PED,numero));
+            System.out.println("5");
             JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente","Aviso",
             JOptionPane.INFORMATION_MESSAGE);
         }catch(Exception e){
