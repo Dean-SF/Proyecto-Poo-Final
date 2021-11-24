@@ -65,11 +65,16 @@ public class AdminPedidos {
         }
         for(int i = 0; i<top.size(); i++){
              System.out.println(top.get(i).getKey().getNombre());
+             System.out.println("New");
         }
         Collections.sort(top, new Comparator<KVPair<Producto,Integer>>(){
             @Override
             public int compare(KVPair<Producto,Integer> P1, KVPair<Producto,Integer> P2){
-                return Integer.valueOf(P1.getValue()).compareTo(P2.getValue());
+                if(P1.getValue()<P2.getValue()){
+                    return 1;
+                }else{
+                    return -1;
+                }
             }
         });
         ArrayList<Producto> topFinal = new ArrayList<Producto>();

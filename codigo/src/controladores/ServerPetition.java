@@ -64,12 +64,15 @@ public class ServerPetition {
             peticion.setDatos(adminProductos.getProductos());
             return peticion;
         }else if(tipo==TPeticion.LISTA_TOP){
+            System.out.println("Top");   
             peticion.setDatos(adminPedidos.topVendidos());
             return peticion;
         }else if(tipo==TPeticion.LISTA_SIN_PEDIR){
+            System.out.println("Sin");
             peticion.setDatos(adminPedidos.noVendidos(adminProductos.getProductos()));
             return peticion;
         }else if(tipo==TPeticion.CANTIDADES){
+            System.out.println("Can");
             peticion.setDatos(adminPedidos.cantidadTipos());
             return peticion;
         }else if(tipo == TPeticion.INGRESAR){
@@ -79,7 +82,6 @@ public class ServerPetition {
             peticion.setDatos(correcto);
             return peticion;
         }else if(tipo==TPeticion.CANTIDAD_PEDIDOS){
-            System.out.println("2000");
             peticion.setDatos(adminPedidos.cantidadPedidos());
             return peticion;
         }

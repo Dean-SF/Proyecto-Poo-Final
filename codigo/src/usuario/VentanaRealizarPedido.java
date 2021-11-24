@@ -179,7 +179,6 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         for(int  i = 0; i<nuevos.size(); i++){
             KVPair<Producto, Integer> actual = nuevos.get(i);
             lista[i] = actual.getKey().getNombre()+"-"+actual.getValue();
-            System.out.println(actual.getKey().getNombre());
         }
         productosSeleccionados.setListData(lista);
     }
