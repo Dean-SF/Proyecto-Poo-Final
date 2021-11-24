@@ -55,6 +55,8 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
             System.out.println("5");
             JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente","Aviso",
             JOptionPane.INFORMATION_MESSAGE);
+            nombreDato.setText("");
+            pedidoDato.setText("");
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Error inesperado","Error",
             JOptionPane.ERROR_MESSAGE);
@@ -107,6 +109,8 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
+            nombreDato.setText("");
+            pedidoDato.setText("");
             GestorVentanas.volverAtras();
         }
         if(e.getSource()== eliminar){
