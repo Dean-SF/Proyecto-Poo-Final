@@ -62,6 +62,15 @@ public class ServerPetition {
         }else if(tipo==TPeticion.CONSULTAR_LISTA_PROD){
             peticion.setDatos(adminProductos.getProductos());
             return peticion;
+        }else if(tipo==TPeticion.LISTA_TOP){
+            peticion.setDatos(adminPedidos.topVendidos());
+            return peticion;
+        }else if(tipo==TPeticion.LISTA_SIN_PEDIR){
+            peticion.setDatos(adminPedidos.noVendidos(adminProductos.getProductos()));
+            return peticion;
+        }else if(tipo==TPeticion.CANTIDADES){
+            peticion.setDatos(adminPedidos.cantidadTipos());
+            return peticion;
         }
         peticion.setDatos(null);
         System.out.println("A");
