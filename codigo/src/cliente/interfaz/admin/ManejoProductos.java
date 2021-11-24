@@ -3,8 +3,10 @@ package cliente.interfaz.admin;
 import cliente.Cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
@@ -54,6 +57,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
 
     private JLabel lPrecio = new JLabel("Precio:");
     private JTextField precio = new JTextField();
+
+    private JFileChooser imagen = new JFileChooser();
+    private JButton selImagen = new JButton("Imagen");
 
     // Tabla
     private String [] columnas = {"Tipo","Codigo","Nombre","Descripcion","Porcion",
@@ -163,6 +169,14 @@ public class ManejoProductos extends JPanel implements ActionListener{
         precio.setBounds(85, 357, 100, 25);
         add(precio);
 
+        imagen.removeChoosableFileFilter(imagen.getFileFilter());
+        imagen.setFileFilter(new FileNameExtensionFilter("Imagenes","jpg","jpeg","png"));
+        imagen.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        selImagen.setFont(Fonts.botones);
+        selImagen.setBounds(200, 357, 100, 25);
+        selImagen.addActionListener(this);
+        add(selImagen);
+
         vertical.setBounds(350, 10, 10, 660);
         add(vertical);
 
@@ -207,7 +221,12 @@ public class ManejoProductos extends JPanel implements ActionListener{
             cargarTabla();
         }else if(e.getSource() == agregar){
             agregarProducto();
+        }else if(e.getSource() == selImagen) {
             
+            imagen.setSelectedFile(null);
+            System.out.println(imagen.getSelectedFile());
+            imagen.showOpenDialog(this);
+            System.out.println(imagen.getSelectedFile());
         }
         
     }
@@ -221,6 +240,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         int cantidad = verifNumPos(this.cantidad.getText());
         int calorias = verifNumPos(this.calorias.getText());
         int precio = verifNumPos(this.precio.getText());
+        File imagen = this.imagen.getSelectedFile();
         if(tamanno == -1) {
             JOptionPane.showMessageDialog(this, "Digite numeros en el tamaño","ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -233,6 +253,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
         } else if(precio == -1) {
             JOptionPane.showMessageDialog(this, "Digite numeros en el precio","ERROR", JOptionPane.ERROR_MESSAGE);
             return;
+        } else if(imagen == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una imagen","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         Producto producto = new ProductoBuilder()
@@ -243,6 +266,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
                                 .cantidad(cantidad)
                                 .calorias(calorias)
                                 .precio(precio)
+                                .imagen(imagen)
                                 .buildProducto();
         
         Peticion peticion = new Peticion(TPeticion.AGREGAR_PROD, producto);                        
@@ -267,6 +291,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         cantidad.setText("");
         calorias.setText("");
         precio.setText("");
+        imagen.setSelectedFile(null);
     }
 
     private boolean verifCodigo() {

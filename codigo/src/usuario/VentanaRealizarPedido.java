@@ -42,6 +42,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JList<String> productosSeleccionados = new JList<String>();
     
     private JLabel caloriasLabel = new JLabel("Calorias:");
+
+    private JLabel imagen = new JLabel("a");
     
     //modalidad
     private JLabel modalidadLabel = new JLabel("Modo de Solicitud");
@@ -65,6 +67,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private JLabel precioLabel = new JLabel("Precio:");
     
     //botones
+    private JButton mImagen = new JButton("Mostrar Imagen");
     private JButton agregar = new JButton("Agregar");  
     private JButton eliminar = new JButton("Eliminar");
     private JButton pedir = new JButton("Pedir");   
@@ -228,6 +231,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         caloriasLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
         caloriasLabel.setBounds(50,420,300,30);
+
+        imagen.setBounds(50,460,300,300);
+        
         
         //modalidad
         modalidadLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));
@@ -286,6 +292,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         eliminar.setBounds(160, 220, 100, 25);
         eliminar.addActionListener(this);
         
+        mImagen.setBounds(260, 220, 100, 25);
+        mImagen.setFont(new Font("Segoe UI",Font.PLAIN,15));
+        mImagen.addActionListener(this);
+
         pedir.setFont(new Font("Segoe UI",Font.PLAIN,15));
         pedir.setBounds(600, 650, 100, 25);
         pedir.addActionListener(this);
@@ -318,6 +328,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         this.add(direccionLabel);
         this.add(direccionDato);
         
+        this.add(imagen);
         this.add(precioLabel);
         
         //this.add(express);
@@ -326,6 +337,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         this.add(agregar);
         this.add(pedir);
         this.add(eliminar);
+        this.add(mImagen);
         this.add(volver);
         
         this.setVisible(false);

@@ -1,5 +1,7 @@
 package datos;
 
+import java.io.File;
+
 /**
  *
  * @author Esteban
@@ -12,11 +14,12 @@ public class ProductoBuilder {
    private int cantidad;
    private int calorias;
    private int precio;
+   private File imagen;
    
    public ProductoBuilder(){};
     public Producto buildProducto(){
         Porcion temp = new Porcion(cantidad,size,calorias);
-        return new Producto(codigo,nombre,descripcion,temp,precio);
+        return new Producto(codigo,nombre,descripcion,temp,precio,imagen);
     }
     public ProductoBuilder codigo(String codigo){
         this.codigo = codigo;
@@ -44,6 +47,10 @@ public class ProductoBuilder {
     }
     public ProductoBuilder precio(int precio){
         this.precio = precio;
+        return this;
+    }
+    public ProductoBuilder imagen(File imagen){
+        this.imagen = imagen;
         return this;
     }
 }
