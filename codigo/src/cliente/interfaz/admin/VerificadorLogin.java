@@ -8,7 +8,7 @@ package cliente.interfaz.admin;
 import datos.IConstantes;
 
 /**
- *
+ *  Clase que verifica el login
  * @author DMV
  */
 public class VerificadorLogin {

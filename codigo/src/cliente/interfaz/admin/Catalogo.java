@@ -20,6 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/***
+ * Ventana con el catalogo de productos
+ * @author Esteban
+ */
 @SuppressWarnings("unchecked")
 public class Catalogo extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");

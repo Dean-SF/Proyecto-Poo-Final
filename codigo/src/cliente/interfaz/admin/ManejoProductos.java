@@ -32,6 +32,10 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.io.FileUtils;
 
+/***
+ * Ventana para el manejo de los productos
+ * @author Esteban
+ */
 @SuppressWarnings("unchecked")
 public class ManejoProductos extends JPanel implements ActionListener{
 
@@ -120,7 +124,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
             return;
         }
     }
-    
+    /***
+     * Constructor con sus partes
+     */
     public ManejoProductos() {
         // Setup
         setSize(1280, 450);
@@ -236,7 +242,11 @@ public class ManejoProductos extends JPanel implements ActionListener{
         volver.addActionListener(this);
         add(volver);
     }
-
+    
+    /***
+     * Metodo con los action listeners de los botones
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
@@ -261,7 +271,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
         }
         
     }
-
+    /***
+     * Metodo para cambiar el monto extra por expres
+     */
     public void cambiarPorExpress() {
         int numero = verifNumPos(porExpress.getText());
         if(numero == -1) {
@@ -274,7 +286,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
         JOptionPane.INFORMATION_MESSAGE);
         porExpress.setText("");
     }
-
+    /***
+     * Metodo para cambiar el porcentajo por recoger
+     */
     public void cambiarPorRecoger() {
         double numero;
         try {
@@ -295,7 +309,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
         JOptionPane.INFORMATION_MESSAGE);
         porRecoger.setText("");
     }
-
+    /***
+     * Metodo que elimina un producto de la lista de productos
+     */
     public void eliminarProducto() {
         if(!verifCodigo()) {
             JOptionPane.showMessageDialog(this, "El codigo esta en mal formato","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -311,7 +327,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
             "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /***
+     * Metodo que modifica un producto 
+     */
     public void modificarProducto() {
         if(!verifCodigo()) {
             JOptionPane.showMessageDialog(this, "El codigo esta en mal formato","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -391,7 +409,10 @@ public class ManejoProductos extends JPanel implements ActionListener{
         JOptionPane.showMessageDialog(this, "Producto modificado","ENHORABUENA", JOptionPane.INFORMATION_MESSAGE);
         vaciarEspacios();
     }
-
+    
+    /***
+     * Metodo que agrega un producto
+     */
     public void agregarProducto() {
         if(!verifCodigo()) {
             JOptionPane.showMessageDialog(this, "El codigo esta en mal formato","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -449,7 +470,9 @@ public class ManejoProductos extends JPanel implements ActionListener{
             return;
         }
     }
-
+    /***
+     * Metodo que cavalida que no existan espacios en blanco
+     */
     private void vaciarEspacios() {
         codigo.setText("");
         nombre.setText("");
@@ -460,7 +483,10 @@ public class ManejoProductos extends JPanel implements ActionListener{
         precio.setText("");
         imagen.setSelectedFile(null);
     }
-
+    /***
+     * Metodo que valida el codigo
+     * @return boolean
+     */
     private boolean verifCodigo() {
         String codigo = this.codigo.getText();
         if(codigo.length() != 7)
@@ -476,8 +502,12 @@ public class ManejoProductos extends JPanel implements ActionListener{
                 return false;
         }
         return true;
-    }
-    
+    }   
+    /***
+     * Metodo que valida los numeros
+     * @param numero
+     * @return int
+     */
     private int verifNumPos(String numero) {
         try {
             int temp = Integer.parseInt(numero);
