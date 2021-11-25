@@ -74,7 +74,7 @@ public class Producto implements Serializable{
         return imagen;
     }
 
-    private String saberTipo(){
+    public String saberTipo(){
         String texto = codigo.substring(0,3);
         if(texto.equals("ENT")) {
             return "Entrada";

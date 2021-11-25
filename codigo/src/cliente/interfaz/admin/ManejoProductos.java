@@ -98,7 +98,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
             DefaultTableModel modeloTabla = new DefaultTableModel(columnas, productos.size());
             for(int  i = 0; i<productos.size(); i++){
                 Producto actual = productos.get(i);
-                modeloTabla.setValueAt("n/a", i, 0);
+                modeloTabla.setValueAt(actual.saberTipo(), i, 0);
                 modeloTabla.setValueAt(actual.getCodigo(), i, 1); 
                 modeloTabla.setValueAt(actual.getNombre(),i,2);
                 modeloTabla.setValueAt(actual.getDescripcion(), i, 3);
