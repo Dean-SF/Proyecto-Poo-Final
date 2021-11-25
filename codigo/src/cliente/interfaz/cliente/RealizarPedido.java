@@ -7,10 +7,10 @@ package cliente.interfaz.cliente;
 
 import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
+import controladores.PedidoBuilder;
 import controladores.TPeticion;
 import datos.KVPair;
 import datos.Pedido;
-import datos.PedidoBuilder;
 import datos.Peticion;
 import datos.Producto;
 import datos.TRecoger;
@@ -89,7 +89,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
     private Peticion pedirLista(){
         return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
     }
-    /***
+    /**
      * Metodo que carga la lista de productos selecionados
     */
     public void cargarLista(){
@@ -101,7 +101,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
             productos.addItem(actual);
         }
     }
-    /***
+    /**
      * Metodo que verifica si un producto esta dentro de los elegidos o no y 
      * retorna su posicion o un -1
      * @param nombre
@@ -117,7 +117,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         }
         return -1;
     }
-    /***
+    /**
      * Metodo que agrega un producto a la lista de productos y actualiza las
      * diferente tablas del menu
      */
@@ -134,7 +134,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         agregarSelecionados();
         setCantidadesMas(actual,numero);
     }
-    /***
+    /**
      * Metodo que elimina un producto de la lista de selecionado y actualiza
      * las diferentes tablas del menu
      */
@@ -162,7 +162,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         setCantidadesMenos(actual,numero);
     }
     
-    /***
+    /**
      * Metodo que carga la tabla de los productos  selecionados
      */
     private void agregarSelecionados(){
@@ -173,7 +173,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         }
         productosSeleccionados.setListData(lista);
     }
-    /***'
+    /**
      * Metodo que agrega el precio y las calorias a sus respectivos label
      * @param actual
      * @param num 
@@ -184,7 +184,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         precioLabel.setText("Precio: "+precioTotal);
         caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
-    /***
+    /**
      * Metodo que elimina el precio y las calorias de su respectivo label
      * @param actual
      * @param num 
@@ -195,7 +195,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         precioLabel.setText("Precio: "+precioTotal);
         caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
-    /***
+    /**
      * Metodo que valida todos los  datos y segun esto contruye el pedido y lo
      * agrega a la lista de los diferentes pedidos
      */
@@ -259,7 +259,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
             JOptionPane.INFORMATION_MESSAGE);
         reset();
     }
-    /***
+    /**
      * Metodo que reinicia todos los componentes de la ventana
      */
     public void reset(){
@@ -280,7 +280,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         }
         agregarSelecionados();
     }
-    /***
+    /**
      * Constructor de la ventana con sus partes
      */
     public RealizarPedido() {
@@ -422,7 +422,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
-    /***
+    /**
      * Metodo que limita la cantidad de numeros
      * @param amount 
      */
@@ -440,7 +440,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
             }
         });
     }
-    /***
+    /**
      * Metodo que evita el ingreso de letras
      * @param amount 
      */
@@ -458,7 +458,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
             }
         });
     }
-    /***
+    /**
      * Metodo que muestra la imagen de un producto
      * @throws IOException 
      */
@@ -470,7 +470,7 @@ public class RealizarPedido extends JPanel implements ActionListener{
         ImageIcon labelImage = new ImageIcon(newImg);
         imagen.setIcon(labelImage);
     }
-    /***
+    /**
      * Metodo con los action listener da cada boton
      * @param e 
      */

@@ -43,17 +43,24 @@ public class ServerInterface{
     }
     
     /***
-     * Metodo que imprime un mensaje en la caja de texto
+     * Metodo que imprime un mensaje en la caja de texto y cierra el server
      * @param mensaje 
      */
     public static void mensajeDebug(String mensaje) {
         Principal.setDebug(mensaje);
         server = null;
     }
+    /**
+     * Metodo que imprime un mensaje en la caja de texto pero no cierra el server
+     * @param mensaje
+     */
     public static void mensajeErrorDetenido(String mensaje) {
         Principal.setDebug(mensaje);
     }
 
+    /** 
+     * Metodo que cierra la ventana
+    */
     private void protocoloDeCerrado() {
         if(server != null) {
             server.apagar();
@@ -69,11 +76,17 @@ public class ServerInterface{
         ServerInterface.server = server;
     }
 
+    /** 
+     * Metodo que abre la ventana del historial
+    */
     public static void abrirHistorial() {
         principal.setVisible(false);
         historial.setVisible(true);
     }
 
+    /** 
+     * Metodo para volver a la pantalla principal
+    */
     public static void volver() {
         historial.setVisible(false);
         principal.setVisible(true);

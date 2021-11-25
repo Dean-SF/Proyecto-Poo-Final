@@ -16,7 +16,14 @@ public class Producto implements Serializable{
    private int precio;
    private File imagen;
    
+   /** 
+    * Constructor de la clase
+   */
    public Producto(){};
+
+   /** 
+    * Constructor de la clase
+   */
    public Producto(String codigo, String nombre, String desccripcion, Porcion porcion, int precio, File imagen) {
        this.codigo = codigo;
        this.nombre = nombre;
@@ -74,6 +81,10 @@ public class Producto implements Serializable{
         return imagen;
     }
 
+    /**
+     * Retorna un string con el tipo de producto
+     * @return
+     */
     public String saberTipo(){
         String texto = codigo.substring(0,3);
         if(texto.equals("ENT")) {

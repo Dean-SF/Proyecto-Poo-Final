@@ -5,17 +5,20 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import datos.Producto;
 
-/***
+/**
  * Clase que se encarga del manejo de los diferentes produtos.
  * @author Deyan
  */
 public class AdminProductos implements Serializable{
     private LinkedList<Producto> productos;
 
+    /** 
+     * Constructor de la clase
+     */ 
     AdminProductos() {
         productos = new LinkedList<Producto>();
     }
-    /***
+    /**
      * Metodo que agrega un un producto a la lista de producto
      * si esta no esta agregado
      * @param producto
@@ -28,7 +31,7 @@ public class AdminProductos implements Serializable{
         productos.add(producto);
         return true;
     }
-    /***
+    /**
      * Metodo que consulta un producto mediante su codigo, si este esta
      * retorna el producto si no retorna null.
      * @param codigo
@@ -42,7 +45,7 @@ public class AdminProductos implements Serializable{
         }
         return null;
     }
-    /***
+    /**
      * Metodo que modifica un producto segun el parametro de entrada (string) y el
      * tipo de modificacion
      * @param codigo
@@ -70,7 +73,7 @@ public class AdminProductos implements Serializable{
         }
 
     }
-    /***
+    /**
      * Metodo que modifica un producto segun el parametro de entrada (int) y el
      * tipo de modificacion
      * @param codigo
@@ -101,7 +104,7 @@ public class AdminProductos implements Serializable{
 
         }
     }
-    /***
+    /**
      * Metodo que modifica la imagen de un producto 
      * @param codigo
      * @param tipo
@@ -119,7 +122,7 @@ public class AdminProductos implements Serializable{
         }
         return false;
     }
-    /***
+    /**
      * Metodo que elimina un producto de la lista de productos
      * @param codigo
      * @return 
@@ -133,6 +136,10 @@ public class AdminProductos implements Serializable{
         return true;
     }
     
+    /**
+     * retorna la lista de producto
+     * @return {@code LinkedList<Producto>}
+     */
     public LinkedList<Producto> getProductos(){
         return productos;
     }

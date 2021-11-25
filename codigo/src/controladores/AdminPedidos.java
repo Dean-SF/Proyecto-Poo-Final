@@ -24,7 +24,7 @@ public class AdminPedidos implements Serializable{
         pedidos = new ArrayList<Pedido>();
         cantidad = 0;
     }
-    /***
+    /**
      * agrega un producto a la lista de productos y le suma a la cantidad de pedidos
      * @param pedido
      * @return boolean
@@ -37,7 +37,7 @@ public class AdminPedidos implements Serializable{
         }
         return false;
     }
-    /***
+    /**
      * Consulta un pedido mediante el codigo y si existe retorna el pedido si
      * no retorna null
      * @param codigo
@@ -53,7 +53,7 @@ public class AdminPedidos implements Serializable{
         }
         return null;
     }
-    /***
+    /**
      * Metodo que elimina un pedido de la lista de pedidos
      * @param codigo
      * @return boolean
@@ -66,10 +66,16 @@ public class AdminPedidos implements Serializable{
         }
         return false;
     }
+
+    /**
+     * retorna la lista de pedidos
+     * @return {@code ArrayList<Pedido>}
+     */
     public ArrayList<Pedido> getPedidos(){
         return pedidos;
     }
-    /***
+
+    /**
      * Metodo que devulve una lista con los productos mas vendidos 
      * dentro de los pedidos
      * @return ArrayList-Producto
@@ -111,7 +117,7 @@ public class AdminPedidos implements Serializable{
         }
         return topFinal;
     }
-    /***
+    /**
      * Metodo que retorna una lista con los productos no vendidos segun los 
      * productos pedidos y la lista total de productos
      * @param productos
@@ -140,7 +146,7 @@ public class AdminPedidos implements Serializable{
         }
         return noVendidos;
     }
-    /***
+    /**
      * Metodo que cuenta la cantidad de pedidos de cada tipo y retorna un []
      * con tres numero, [0] para sitio, [1] para recoger y [2] para express 
      * @return int[]
@@ -160,7 +166,7 @@ public class AdminPedidos implements Serializable{
         }
         return cantidades;
     }
-    /***
+    /**
      * Metodo que retorna la cantidad total de pedidos realizados
      * @return 
      */
@@ -168,18 +174,34 @@ public class AdminPedidos implements Serializable{
         return cantidad;
     }
 
+    /**
+     * metodo para cambiar el extra por express
+     * @param porExpress
+     */
     public static void setPorExpress(double porExpress) {
         AdminPedidos.porExpress = porExpress;
     }
 
+    /**
+     * metodo para cambiar el extra por empaquetado
+     * @param porRecoger
+     */
     public static void setPorRecoger(double porRecoger) {
         AdminPedidos.porRecoger = porRecoger;
     }
 
+    /**
+     * Obtener el extra por express
+     * @return
+     */
     public static double getPorExpress() {
         return porExpress;
     }
 
+    /**
+     * Obtener el extra por empaquetado
+     * @return
+     */
     public static double getPorRecoger() {
         return porRecoger;
     }

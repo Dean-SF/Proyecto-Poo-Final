@@ -12,7 +12,14 @@ public class Usuario implements Serializable{
     private int celular;
     private String direccion;
     
+    /** 
+     * Constructor de la clase
+    */
     public Usuario(){};
+
+    /** 
+     * Constructor de la clase
+    */
     public Usuario(String nombre, int celular, String direccion) {
         this.nombre = nombre;
         this.celular = celular;

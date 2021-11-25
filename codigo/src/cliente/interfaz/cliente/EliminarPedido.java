@@ -38,13 +38,13 @@ public class EliminarPedido extends JPanel implements ActionListener{
         try{
             String nombre = String.valueOf(nombreDato.getText());
             String numero = String.valueOf(pedidoDato.getText());
-            if(nombre.isBlank()||numero.isBlank()){
+            if(nombre.isBlank() || numero.isBlank()){
                 JOptionPane.showMessageDialog(this, "Debe de colocar los datos","Error",
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PED,numero));
-            if(peticion.getDatos()==null){
+            if(peticion.getDatos() == null){
                 JOptionPane.showMessageDialog(this, "El pedido no existe","Error",
                 JOptionPane.ERROR_MESSAGE);
                 return;
@@ -115,7 +115,7 @@ public class EliminarPedido extends JPanel implements ActionListener{
             pedidoDato.setText("");
             GestorVentanas.volverAtras();
         }
-        if(e.getSource()== eliminar){
+        if(e.getSource() == eliminar){
             eliminarPedido();
         }
     }

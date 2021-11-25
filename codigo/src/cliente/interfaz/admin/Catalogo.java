@@ -37,13 +37,17 @@ public class Catalogo extends JPanel implements ActionListener{
     private JLabel filtrarLabel = new JLabel("Filtrar por:");
     private JComboBox<String> filtrarBox = new JComboBox<String>();
     
-    
+    /**
+     * retorna el tipo de producto segun el codigo introducido
+     * @param texto
+     * @return
+     */
     private String saberTipo(String texto){
         texto = texto.substring(0,3);
         if(texto.equals("ENT")) {
             return "Entrada";
         }else if(texto.equals("PRN")){
-            return "Princippal";
+            return "Principal";
         }else if(texto.equals("PTR")){
             return "Postre";
         }else if(texto.equals("BEB")){
@@ -51,6 +55,12 @@ public class Catalogo extends JPanel implements ActionListener{
         }
         return "";
     }
+
+    /**
+     * verifica la validez de un producto segun el filtro escogido
+     * @param codigo
+     * @return
+     */
     private boolean validarFiltro(String codigo){
         String tipo =String.valueOf(filtrarBox.getSelectedItem());
         if("Ninguno".equals(tipo)){
@@ -70,7 +80,7 @@ public class Catalogo extends JPanel implements ActionListener{
     /**
      * Carga un JTable con los datos de los productos.
      */
-     private void cargarTabla(){
+    private void cargarTabla(){
         try{
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
             productos = (LinkedList<Producto>)peticion.getDatos();

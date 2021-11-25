@@ -13,6 +13,11 @@ public class Peticion implements Serializable{
     private TPeticion peticion;
     private Object datos;
 
+    /**
+     * Constructor de la clase
+     * @param peticion
+     * @param datos
+     */
     public Peticion(TPeticion peticion,Object datos) {
         this.peticion = peticion;
         this.datos = datos;

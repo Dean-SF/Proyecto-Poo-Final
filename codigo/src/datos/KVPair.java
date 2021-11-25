@@ -38,6 +38,12 @@ public class KVPair<K,V> implements Serializable{
     public V getValue() {
         return value;
     }
+
+    /**
+     * Metodo para comparar la igualdad entre dos KVPair
+     * @param par
+     * @return
+     */
     public boolean igual(KVPair<K,V> par){
         return key.equals(par.getKey());
     }

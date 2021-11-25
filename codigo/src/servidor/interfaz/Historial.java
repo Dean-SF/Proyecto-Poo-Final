@@ -12,12 +12,21 @@ import javax.swing.JTextArea;
 import cliente.interfaz.fonts.Fonts;
 import servidor.Servidor;
 
+
+/** 
+ * Clase que contiene la ventana del historial de conexiones del
+ * servidor
+ * @author Deyan Sanabria Fallas
+*/
 public class Historial extends JPanel implements ActionListener{
     private JLabel titulo = new JLabel("HISTORIAL:");
     private JButton volver = new JButton("volver");
     private static JTextArea historial = new JTextArea();
     private JScrollPane hisScroll = new JScrollPane(historial);
 
+    /** 
+     * Constructor de la ventana
+    */
     public Historial() {
         setSize(640, 435);
         setVisible(false);
@@ -40,6 +49,9 @@ public class Historial extends JPanel implements ActionListener{
         add(volver);
     }
 
+    /** 
+     * Metodo que administra las acciones de los botones
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver ) {
@@ -47,7 +59,10 @@ public class Historial extends JPanel implements ActionListener{
         }
         
     }
-
+    
+    /** 
+     * Metodo que actualiza la caja de texto con el historial
+    */
     public static void actualizarHistorial() {
         historial.setText(Servidor.getHistorial());
     }

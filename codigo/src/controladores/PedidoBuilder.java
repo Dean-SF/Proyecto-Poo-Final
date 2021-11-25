@@ -1,4 +1,8 @@
-package datos;
+package controladores;
+
+import datos.Pedido;
+import datos.TRecoger;
+import datos.Usuario;
 
 /**
  * Clase que contruye un pedido con sus diferentes atributos

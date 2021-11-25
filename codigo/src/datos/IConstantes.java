@@ -1,7 +1,7 @@
 package datos;
 
 /**
- * IConstantes
+ * IConstantes, contiene constantes
  */
 public interface IConstantes {
     int PUERTO = 25565;

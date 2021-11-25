@@ -12,7 +12,13 @@ public class Porcion implements Serializable{
     private int size;
     private int calorias;
     
+    /** 
+     * Constructor de la clase
+    */
     public Porcion(){};
+    /** 
+     * Constructor de la clase
+    */
     public Porcion(int cantidad, int size, int calorias) {
         this.cantidad = cantidad;
         this.size = size;

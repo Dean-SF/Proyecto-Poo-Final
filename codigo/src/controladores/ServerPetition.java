@@ -21,7 +21,7 @@ public class ServerPetition implements Serializable{
         adminPedidos = new AdminPedidos();
         adminProductos = new AdminProductos();
     }
-    /***
+    /**
      * Metodo que toma una peticio y segun el TPeticion dentro de esta
      * realiaza una funcionalidad llamando a un metodo de los dos paramatros
      * con la respusta de estos mismos

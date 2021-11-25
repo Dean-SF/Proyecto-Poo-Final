@@ -10,6 +10,10 @@ import cliente.interfaz.fonts.Fonts;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Menu de la interfaz de administrador, contiene todas las opciones
+ * que puede realizar un administrador
+ */
 public class AdminMenu extends JPanel implements ActionListener{
     private static JLabel titulo = new JLabel("Administracion");
     private static JButton vCatalogo = new JButton("Ver catalogo");
@@ -19,7 +23,9 @@ public class AdminMenu extends JPanel implements ActionListener{
     private static JButton volver = new JButton("Volver");
     private static JButton atender = new JButton("Atender");
 
-
+    /**
+     * Constructor de la ventana
+     */
     public AdminMenu() {
         // Setup
         setSize(480, 480);
@@ -63,7 +69,9 @@ public class AdminMenu extends JPanel implements ActionListener{
 
     }
 
-
+    /** 
+     * Metodo que maneja las acciones que hacen los botones
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {

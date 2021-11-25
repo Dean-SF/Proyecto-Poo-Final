@@ -20,6 +20,9 @@ public class Pedido implements Serializable{
     private TRecoger recoger;
     private ArrayList<KVPair<Producto, Integer>> productos;
 
+    /**
+     * Constructor de la clase
+     */
     public Pedido(){};
     
     public Pedido(String codigo, Usuario usuario, double precio, int calorias, TRecoger recoger) {
@@ -75,8 +78,6 @@ public class Pedido implements Serializable{
         return recoger;
     }
     
-    
-
     public ArrayList<KVPair<Producto, Integer>> getProductos() {
         return productos;
     }

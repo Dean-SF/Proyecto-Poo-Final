@@ -29,7 +29,8 @@ public class Servidor {
     private ServerPetition interprete;
     private Thread proceso;
     private static String historial = "";
-    /***
+
+    /**
      * Contructor del servidor
      */
     public Servidor() {
@@ -68,7 +69,7 @@ public class Servidor {
         });
         proceso.start();
     }
-    /***
+    /**
      * Metodo que apaga el servidor y envia un mensaje a la interfaz
      * de que se cerro correctamente o por un error.
      */
@@ -89,6 +90,9 @@ public class Servidor {
         guardarDatos();
     }
 
+    /**
+     * Metodo para guardar los datos del servidor
+     */
     public void guardarDatos() {
         try {
             FileOutputStream archivo = new FileOutputStream("./src/servidor/data/data.dat");
@@ -101,6 +105,9 @@ public class Servidor {
         }
     }
 
+    /** 
+     * Metodo para cargar los datos del servidor
+     */
     public void cargarDatos() {
         try {
             FileInputStream archivo = new FileInputStream("./src/servidor/data/data.dat");
@@ -119,6 +126,10 @@ public class Servidor {
         return historial;
     }
 
+    /**
+     * metodo que actualiza el historial de conexiones del servidor
+     * @param peticion
+     */
     private void historial(Peticion peticion) {
         switch(peticion.getPeticion()) {
         case AGREGAR_PED:

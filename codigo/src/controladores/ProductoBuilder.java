@@ -1,6 +1,9 @@
-package datos;
+package controladores;
 
 import java.io.File;
+
+import datos.Porcion;
+import datos.Producto;
 
 /**
  * Clase que contruye un producto con sus diferentes atributos

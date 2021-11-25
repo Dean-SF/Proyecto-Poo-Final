@@ -40,13 +40,6 @@ public class Pedidos extends JPanel implements ActionListener{
      */
     private void cargarTabla(){
         try{
-            /*Pedido ned = new PedidoBuilder()
-                    .codigo("RE-01")
-                    .nombre("Perrito caliente")
-                    .precio(3500)
-                    .calorias(300)
-                    .buildPedido();*/
-            //Cliente.enviarPeticion(new Peticion(TPeticion.AGREGAR_PED,ned));
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PED,""));
             pedidos = (ArrayList<Pedido>)peticion.getDatos();
             tabla.setVisible(true);
@@ -91,8 +84,8 @@ public class Pedidos extends JPanel implements ActionListener{
     }
     
     /**
-    * Constructor de la ventana con los botones y el JTable.
-    */
+     * Constructor de la ventana con los botones y el JTable.
+     */
     public Pedidos(){
         // Setup
         setSize(1000, 540);

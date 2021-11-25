@@ -20,11 +20,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
+import controladores.ProductoBuilder;
 import controladores.TModificacion;
 import controladores.TPeticion;
 import datos.Peticion;
 import datos.Producto;
-import datos.ProductoBuilder;
 
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -89,7 +89,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
     /**
      * Carga un JTable con los datos de los productos.
      */
-     private void cargarTabla(){
+    private void cargarTabla(){
         try{
             tabla.setVisible(false);
             Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
@@ -268,7 +268,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         }
         
     }
-    /***
+    /**
      * Metodo para cambiar el monto extra por expres
      */
     public void cambiarPorExpress() {
@@ -283,7 +283,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         JOptionPane.INFORMATION_MESSAGE);
         porExpress.setText("");
     }
-    /***
+    /**
      * Metodo para cambiar el porcentajo por recoger
      */
     public void cambiarPorRecoger() {
@@ -306,7 +306,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         JOptionPane.INFORMATION_MESSAGE);
         porRecoger.setText("");
     }
-    /***
+    /**
      * Metodo que elimina un producto de la lista de productos
      */
     public void eliminarProducto() {
@@ -324,7 +324,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
             "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-    /***
+    /**
      * Metodo que modifica un producto 
      */
     public void modificarProducto() {
@@ -407,7 +407,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         vaciarEspacios();
     }
     
-    /***
+    /**
      * Metodo que agrega un producto
      */
     public void agregarProducto() {
@@ -467,7 +467,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
             return;
         }
     }
-    /***
+    /**
      * Metodo que cavalida que no existan espacios en blanco
      */
     private void vaciarEspacios() {
@@ -480,7 +480,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
         precio.setText("");
         imagen.setSelectedFile(null);
     }
-    /***
+    /**
      * Metodo que valida el codigo
      * @return boolean
      */

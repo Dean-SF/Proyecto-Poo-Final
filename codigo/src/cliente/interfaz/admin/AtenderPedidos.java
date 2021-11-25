@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- *
+ * Opcion para atender pedidos de la interfaz
  * @author Esteban
  */
 public class AtenderPedidos extends JPanel implements ActionListener{
@@ -61,7 +61,7 @@ public class AtenderPedidos extends JPanel implements ActionListener{
             return;
         }
     }
-    /***
+    /**
      * Contructor de la ventana con sus partes
      */
     public AtenderPedidos() {
@@ -97,7 +97,7 @@ public class AtenderPedidos extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
-    /***
+    /**
      * Metodo con el action listener de cada boton
      * @param e 
      */

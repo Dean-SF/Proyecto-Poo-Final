@@ -12,6 +12,11 @@ import javax.swing.JTextArea;
 import cliente.interfaz.fonts.Fonts;
 import servidor.Servidor;
 
+/** 
+ * Clase que contiene la pantalla principal del servidor con una caja de texto
+ * que muestra sobre errores que ocurren en el server
+ * @author Deyan Sanbria Fallas
+*/
 public class Principal extends JPanel implements ActionListener{
     private JLabel lDebug = new JLabel("DEBUG:");
     private static JTextArea debug = new JTextArea();
@@ -20,7 +25,9 @@ public class Principal extends JPanel implements ActionListener{
     private JButton parar = new JButton("Parar");
     private JButton historial = new JButton("Historial");
     
-
+    /** 
+     * Constructor de la clase
+    */
     public Principal() {
         setSize(640, 435);
         setVisible(true);
@@ -54,6 +61,9 @@ public class Principal extends JPanel implements ActionListener{
 
     }
 
+    /** 
+     * Metodo que administra las acciones de los botones
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == iniciar) {

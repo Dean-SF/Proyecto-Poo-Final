@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import cliente.interfaz.fonts.Fonts;
 
-/***
+/**
  * Ventana del menu principal de la aplicacion
  * @author Esteban
  */
@@ -18,7 +18,7 @@ public class Menu extends JPanel implements ActionListener{
     private JButton admin = new JButton("Administracion");
     private JButton cliente = new JButton("Clientes");
     
-    /***
+    /**
      * Constructor con sus partes
      */
     public Menu() {
@@ -43,7 +43,7 @@ public class Menu extends JPanel implements ActionListener{
 
         
     }
-    /***
+    /**
      * Metodo con los action listeners
      * @param e 
      */

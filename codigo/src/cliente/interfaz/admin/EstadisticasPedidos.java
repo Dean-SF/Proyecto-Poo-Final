@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -84,19 +84,13 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
             }
             tablaH.setModel(modeloTablaH);
             tablaL.setModel(modeloTablaL);
-            /*tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(4).setPreferredWidth(20);*/
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
             JOptionPane.ERROR_MESSAGE);
             return;
         }
     }
-    /***
+    /**
      * Carga los label con los deferentes porcentajes y cantidades
      */
     private void cargarLabel(){
