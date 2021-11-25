@@ -23,7 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Ventana con las estadisticas de productos
  * @author Esteban
  */
 @SuppressWarnings("unchecked")
@@ -97,6 +97,9 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
             return;
         }
     }
+    /***
+     * Carga los label con los deferentes porcentajes y cantidades
+     */
     private void cargarLabel(){
         Peticion peticion = Cliente.enviarPeticion(new Peticion(TPeticion.CANTIDADES,""));
         int[] cantidades = (int[])peticion.getDatos();

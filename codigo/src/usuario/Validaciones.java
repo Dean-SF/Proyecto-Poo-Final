@@ -6,7 +6,7 @@
 package usuario;
 import javax.swing.*;
 /**
- *
+ * Clase que contiene algunas validaciones como la de un numero o el nombre
  * @author DMV
  */
 public class Validaciones {

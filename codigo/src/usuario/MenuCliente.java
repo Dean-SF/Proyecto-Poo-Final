@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
- *
+ * Clase que crea la ventana del menu para el cliente
  * @author DMV
  */
 public class MenuCliente extends JPanel implements ActionListener{
@@ -23,7 +23,9 @@ public class MenuCliente extends JPanel implements ActionListener{
     private JButton eliminarPedido = new JButton("Eliminar Pedido");
     
     private JButton volver = new JButton("Volver");
-    
+    /***
+     * Contructor con las diferentes partes del menu
+     */
     public MenuCliente() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
@@ -58,6 +60,10 @@ public class MenuCliente extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
+    /***
+     * Metodod con el action listener de los diferentes botones.
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {

@@ -89,7 +89,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private Peticion pedirLista(){
         return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
     }
-    
+    /***
+     * Metodo que carga la lista de productos selecionados
+    */
     public void cargarLista(){
         productos.removeAllItems();
         Peticion peticion = pedirLista();
@@ -99,7 +101,12 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             productos.addItem(actual);
         }
     }
-    
+    /***
+     * Metodo que verifica si un producto esta dentro de los elegidos o no y 
+     * retorna su posicion o un -1
+     * @param nombre
+     * @return int
+     */
     private int dentroNuevos(String nombre){
         Producto temp;
         for(int i =0; i<nuevos.size();i++){
@@ -110,7 +117,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         return -1;
     }
-    
+    /***
+     * Metodo que agrega un producto a la lista de productos y actualiza las
+     * diferente tablas del menu
+     */
     private void agregarProduto(){
         Producto actual = (Producto)productos.getSelectedItem();
         int numero = Integer.parseInt(cantidad.getText());
@@ -124,7 +134,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         agregarSelecionados();
         setCantidadesMas(actual,numero);
     }
-    
+    /***
+     * Metodo que elimina un producto de la lista de selecionado y actualiza
+     * las diferentes tablas del menu
+     */
     private void eliminarProducto(){
         String texto = String.valueOf(productos.getSelectedItem());
         String[] nombre = texto.split(" ");
@@ -140,33 +153,31 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
                         JOptionPane.ERROR_MESSAGE);
                         return;
         }
-        for(int  i = 0; i<productosLista.size(); i++){
-            Producto actual = productosLista.get(i);
-            if(nombre[1].equals(actual.getNombre())){
-                int numero = Integer.parseInt(cantidad.getText());
-                if(dentroNuevos(nombre[1])!=-1){
-                    int pos = dentroNuevos(nombre[1]);
-                    if(numero>nuevos.get(pos).getValue()){
-                        JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
-                        JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    if(numero==nuevos.get(pos).getValue()){
-                        nuevos.remove(pos);
-                    }else{
-                        nuevos.get(pos).setValue(nuevos.get(pos).getValue()-numero);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
+        if(nombre[1].equals(actual.getNombre())){
+            int numero = Integer.parseInt(cantidad.getText());
+            if(dentroNuevos(nombre[1])!=-1){
+                int pos = dentroNuevos(nombre[1]);
+                if(numero>nuevos.get(pos).getValue()){
+                    JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
                     JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                agregarSelecionados();
-                setCantidadesMenos(actual,numero);
+                if(numero==nuevos.get(pos).getValue()){
+                    nuevos.remove(pos);
+                }else{
+                    nuevos.get(pos).setValue(nuevos.get(pos).getValue()-numero);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }
+            agregarSelecionados();
+            setCantidadesMenos(actual,numero);
     }
-    
+    /***
+     * Metodo que carga la tabla de los productos  selecionados
+     */
     private void agregarSelecionados(){
         String[] lista  = new String[nuevos.size()];
         for(int  i = 0; i<nuevos.size(); i++){
@@ -175,21 +186,32 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         productosSeleccionados.setListData(lista);
     }
-    
+    /***'
+     * Metodo que agrega el precio y las calorias a sus respectivos label
+     * @param actual
+     * @param num 
+     */
     private void setCantidadesMas(Producto actual,int num){
         caloriasTotal += (actual.getPorcion().getCalorias())*num;
         precioTotal += (actual.getPrecio())*num;
         precioLabel.setText("Precio: "+precioTotal);
         caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
-    
+    /***
+     * Metodo que elimina el precio y las calorias de su respectivo label
+     * @param actual
+     * @param num 
+     */
     private void setCantidadesMenos(Producto actual,int num){
         caloriasTotal -= (actual.getPorcion().getCalorias())*num;
         precioTotal -= (actual.getPrecio())*num;
         precioLabel.setText("Precio: "+precioTotal);
         caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
-    
+    /***
+     * Metodo que valida todos los  datos y segun esto contruye el pedido y lo
+     * agrega a la lista de los diferentes pedidos
+     */
     @SuppressWarnings("static-access")
     private void pedirPedido(){
         if(nuevos.size()==0){
@@ -245,7 +267,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             JOptionPane.INFORMATION_MESSAGE);
         reset();
     }
-    
+    /***
+     * Metodo que reinicia todos los componentes de la ventana
+     */
     public void reset(){
         nuevos.clear();
         nombreDato.setText("");
@@ -264,7 +288,9 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         agregarSelecionados();
     }
-    
+    /***
+     * Constructor de la ventana con sus partes
+     */
     public VentanaRealizarPedido() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
@@ -405,6 +431,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
+    /***
+     * Metodo que limita la cantidad de numeros
+     * @param amount 
+     */
     private void limitarCantidad(JTextField amount){
         amount.addKeyListener(new KeyAdapter(){
             @Override
@@ -419,6 +449,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         });
     }
+    /***
+     * Metodo que evita el ingreso de letras
+     * @param amount 
+     */
     private void limitarNumero(JTextField amount){
         amount.addKeyListener(new KeyAdapter(){
             @Override
@@ -433,7 +467,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
             }
         });
     }
-
+    /***
+     * Metodo que muestra la imagen de un producto
+     * @throws IOException 
+     */
     private void mostrarImagen() throws IOException {
         Producto actual = (Producto)productos.getSelectedItem();
         File archivo = actual.getImagen();
@@ -442,7 +479,10 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         ImageIcon labelImage = new ImageIcon(newImg);
         imagen.setIcon(labelImage);
     }
-
+    /***
+     * Metodo con los action listener da cada boton
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {

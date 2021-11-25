@@ -66,6 +66,9 @@ public class GestorVentanas{
     }
 
     // Hace que se pueda volver atras
+    /***
+     * Permite volver a tras en cada ventana
+     */
     static public void volverAtras() {
         JPanel actual = historial.pop();
         actual.setVisible(false);
@@ -75,7 +78,9 @@ public class GestorVentanas{
         frame.setLocationRelativeTo(null);
         
     }
-    
+    /***
+     * LLama a la ventana de inicion de sesion
+     */
     static public void abrirAdminIngreso() {
         menu.setVisible(false);
         adminIngreso.setVisible(true);
@@ -83,7 +88,9 @@ public class GestorVentanas{
         frame.setSize(adminIngreso.getSize());
         frame.setLocationRelativeTo(null);
     }
-
+    /***
+     * LLama al menu de admin
+     */
     static public void abrirAdminMenu() {
         adminIngreso.setVisible(false);
         administracion.setVisible(true);
@@ -91,7 +98,9 @@ public class GestorVentanas{
         frame.setSize(administracion.getSize());
         frame.setLocationRelativeTo(null);
     }
-
+    /***
+     * LLama al catalogo de productos
+     */
     static public void abrirCatalogo() {
         administracion.setVisible(false);
         menuCliente.setVisible(false);
@@ -100,7 +109,9 @@ public class GestorVentanas{
         frame.setSize(catalogo.getSize());
         frame.setLocationRelativeTo(null);
     }
-
+    /***
+     * LLama a la ventana de pedidos
+     */
     static public void abrirPedidos() {
         administracion.setVisible(false);
         pedidos.setVisible(true);
@@ -108,7 +119,9 @@ public class GestorVentanas{
         frame.setSize(pedidos.getSize());
         frame.setLocationRelativeTo(null);
     }
-
+    /***
+     * LLama a la ventana de manejo de productos
+     */
     static public void abrirManejoProductos() {
         administracion.setVisible(false);
         adminProductos.setVisible(true);
@@ -116,7 +129,9 @@ public class GestorVentanas{
         frame.setSize(adminProductos.getSize());
         frame.setLocationRelativeTo(null);
     }
-    
+    /***
+     * LLama a las estadisticas de productos
+     */
     static public void abrirEstadisticas() {
         administracion.setVisible(false);
         estadisticas.setVisible(true);
@@ -126,6 +141,9 @@ public class GestorVentanas{
     }
     
     //acciones de cliente
+    /***
+     * LLama al menu del cliente
+     */
     static public void cliente() {
         historial.push(menuCliente);
         menuCliente.setVisible(true);
@@ -133,6 +151,9 @@ public class GestorVentanas{
         frame.setSize(menuCliente.getSize());
         frame.setLocationRelativeTo(null);
     }
+    /***
+     * LLama a la ventanan de eliminar un pedido
+     */
     static public void eliminarPedido() {
         historial.push(eliminarPedido);
         menuCliente.setVisible(false);
@@ -140,6 +161,9 @@ public class GestorVentanas{
         frame.setSize(eliminarPedido.getSize());
         frame.setLocationRelativeTo(null);
     }
+    /***
+     * LLama a la ventana de realizar un pedido
+     */
     static public void realizarPedido() {
         historial.push(realizarPedido);
         menuCliente.setVisible(false);

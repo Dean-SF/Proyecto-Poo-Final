@@ -9,11 +9,18 @@ import java.awt.event.ActionListener;
 
 import cliente.interfaz.fonts.Fonts;
 
+/***
+ * Ventana del menu principal de la aplicacion
+ * @author Esteban
+ */
 public class Menu extends JPanel implements ActionListener{
     private JLabel titulo = new JLabel("MENU PRINCIPAL");
     private JButton admin = new JButton("Administracion");
     private JButton cliente = new JButton("Clientes");
-
+    
+    /***
+     * Constructor con sus partes
+     */
     public Menu() {
         // Setup inicial
         setSize(480, 480);
@@ -36,7 +43,10 @@ public class Menu extends JPanel implements ActionListener{
 
         
     }
-
+    /***
+     * Metodo con los action listeners
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == admin) {

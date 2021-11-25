@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/***
+ * Ventana con todos los pedidos del sistema
+ * @author Esteban
+ */
 @SuppressWarnings("unchecked")
 public class Pedidos extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");

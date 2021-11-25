@@ -15,7 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-
+    
+/***
+ * Ventana para el inicion de sesion
+ * @author Esteban
+ */
 @SuppressWarnings("deprecation")
 public class Ingreso extends JPanel implements ActionListener{
     private static JButton volver = new JButton("Volver");
@@ -25,7 +29,10 @@ public class Ingreso extends JPanel implements ActionListener{
     private static JLabel clave = new JLabel("Clave:");
     private static JPasswordField fClave = new JPasswordField();
     private static JButton ingresar = new JButton("Ingresar");
-
+    
+    /***
+     * Constructor con sus partes
+     */
     public Ingreso() {
         // Setup inicial
         setSize(480, 480);
@@ -60,7 +67,11 @@ public class Ingreso extends JPanel implements ActionListener{
         volver.addActionListener(this);
         add(volver);
     }
-
+    
+    /***
+     * Metodo con los  action listeners
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
