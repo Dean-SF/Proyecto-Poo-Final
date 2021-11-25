@@ -17,6 +17,7 @@ public class AdminMenu extends JPanel implements ActionListener{
     private static JButton pedidos = new JButton("Ver pedidos");
     private static JButton estadisticas = new JButton("Estadistica de pedidos");
     private static JButton volver = new JButton("Volver");
+    private static JButton atender = new JButton("Atender");
 
 
     public AdminMenu() {
@@ -48,7 +49,12 @@ public class AdminMenu extends JPanel implements ActionListener{
         estadisticas.setBounds(120, 290, 215, 40);
         estadisticas.addActionListener(this);
         add(estadisticas);
-
+        
+        atender.setFont(Fonts.botones);
+        atender.setBounds(120, 340, 215, 40);
+        atender.addActionListener(this);
+        add(atender);
+      
         volver.setFont(Fonts.botones);
         volver.setBounds(360, 397, 100, 40);
         volver.addActionListener(this);
@@ -70,8 +76,9 @@ public class AdminMenu extends JPanel implements ActionListener{
             GestorVentanas.abrirPedidos();
         } else if(e.getSource() == estadisticas) {
              GestorVentanas.abrirEstadisticas();
-        }
-        
+        }else if(e.getSource() == atender){
+            GestorVentanas.atenderPedido();
+        }   
     }
     
 }
