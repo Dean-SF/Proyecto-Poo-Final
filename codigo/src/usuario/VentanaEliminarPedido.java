@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
- *
+ * Ventana para eliminar los pedidos por parte del mismo usuario
  * @author DMV
  */
 public class VentanaEliminarPedido extends JPanel implements ActionListener{
@@ -31,6 +31,9 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     
     private JButton volver = new JButton("Volver");
     
+    /***
+     * Metodo que realiza la funcionalidad de eliminar un pedido
+     */
     private void eliminarPedido(){
         try{
             String nombre = String.valueOf(nombreDato.getText());
@@ -64,7 +67,9 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
             return;
         }
     }
-    
+    /***
+     * Contructor de la ventana con sus partes
+     */
     public VentanaEliminarPedido() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
@@ -106,6 +111,10 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
         
         this.setVisible(false);
     }
+    /***
+     * Metodo con el action listener de cada boton
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == volver) {
