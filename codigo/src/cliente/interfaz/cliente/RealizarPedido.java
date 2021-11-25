@@ -32,7 +32,7 @@ import javax.swing.*;
 import org.imgscalr.Scalr;
 
 /**
- *
+ * Clase que contiene la ventana para realizar pedidos
  * @author DMV
  */
 @SuppressWarnings("unchecked")
