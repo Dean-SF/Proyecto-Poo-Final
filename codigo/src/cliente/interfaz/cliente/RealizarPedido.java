@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usuario;
+package cliente.interfaz.cliente;
 
 import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
@@ -36,7 +36,7 @@ import org.imgscalr.Scalr;
  * @author DMV
  */
 @SuppressWarnings("unchecked")
-public class VentanaRealizarPedido extends JPanel implements ActionListener{
+public class RealizarPedido extends JPanel implements ActionListener{
     private JLabel titulo = new JLabel("Solicitar Pedido");
     
     //productos
@@ -283,7 +283,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     /***
      * Constructor de la ventana con sus partes
      */
-    public VentanaRealizarPedido() {
+    public RealizarPedido() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
         titulo.setBounds(200,50,590,25);

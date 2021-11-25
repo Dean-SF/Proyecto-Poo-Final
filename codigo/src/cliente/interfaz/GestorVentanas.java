@@ -12,7 +12,9 @@ import cliente.interfaz.admin.EstadisticasPedidos;
 import cliente.interfaz.admin.Ingreso;
 import cliente.interfaz.admin.ManejoProductos;
 import cliente.interfaz.admin.Pedidos;
-import usuario.*;
+import cliente.interfaz.cliente.MenuCliente;
+import cliente.interfaz.cliente.EliminarPedido;
+import cliente.interfaz.cliente.RealizarPedido;
 
 /**
  * Clase que Gestiona las diferentes ventanas del la aplicacion/cliente
@@ -36,8 +38,8 @@ public class GestorVentanas{
     
     //ventanas de cliente
     private static MenuCliente menuCliente = new MenuCliente();
-    private static VentanaEliminarPedido eliminarPedido = new VentanaEliminarPedido();
-    private static VentanaRealizarPedido realizarPedido = new VentanaRealizarPedido();
+    private static EliminarPedido eliminarPedido = new EliminarPedido();
+    private static RealizarPedido realizarPedido = new RealizarPedido();
     
     public GestorVentanas() {
         // Inicializacion del historial

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usuario;
+package cliente.interfaz.cliente;
 
 import cliente.interfaz.GestorVentanas;
 import java.awt.Font;

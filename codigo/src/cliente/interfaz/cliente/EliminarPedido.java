@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usuario;
+package cliente.interfaz.cliente;
 
 import cliente.Cliente;
 import cliente.interfaz.GestorVentanas;
@@ -18,7 +18,7 @@ import javax.swing.*;
  * Ventana para eliminar los pedidos por parte del mismo usuario
  * @author DMV
  */
-public class VentanaEliminarPedido extends JPanel implements ActionListener{
+public class EliminarPedido extends JPanel implements ActionListener{
     private JLabel titulo = new JLabel("Eliminar Pedido");
     
     private JLabel nombreLabel = new JLabel("Nombre:");
@@ -63,7 +63,7 @@ public class VentanaEliminarPedido extends JPanel implements ActionListener{
     /***
      * Contructor de la ventana con sus partes
      */
-    public VentanaEliminarPedido() {
+    public EliminarPedido() {
         // Titulo de la ventana
         titulo.setFont(new Font("OCR A Extended",Font.PLAIN,34));
         titulo.setBounds(150,50,590,25);
