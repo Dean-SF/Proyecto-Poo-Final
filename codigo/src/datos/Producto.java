@@ -73,4 +73,24 @@ public class Producto implements Serializable{
     public File getImagen() {
         return imagen;
     }
+
+    private String saberTipo(){
+        String texto = codigo.substring(0,3);
+        if(texto.equals("ENT")) {
+            return "Entrada";
+        }else if(texto.equals("PRN")){
+            return "Principal";
+        }else if(texto.equals("PTR")){
+            return "Postre";
+        }else if(texto.equals("BEB")){
+            return "Bebida";
+        }
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        String toString = saberTipo() + " " + getNombre();
+        return toString;
+    }
 }

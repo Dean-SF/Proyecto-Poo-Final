@@ -3,6 +3,8 @@ import datos.KVPair;
 import datos.Pedido;
 import datos.Producto;
 import datos.TRecoger;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,7 +14,7 @@ import java.util.LinkedList;
  * Clase que administra los pedidos y la cantidad realizada de estos
  * @author Esteban
  */
-public class AdminPedidos {
+public class AdminPedidos implements Serializable{
     private ArrayList<Pedido> pedidos;
     private int cantidad;
 

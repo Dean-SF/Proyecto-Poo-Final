@@ -1,6 +1,7 @@
 package controladores;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.LinkedList;
 import datos.Producto;
 
@@ -8,7 +9,7 @@ import datos.Producto;
  * Clase que se encarga del manejo de los diferentes produtos.
  * @author Deyan
  */
-public class AdminProductos {
+public class AdminProductos implements Serializable{
     private LinkedList<Producto> productos;
 
     AdminProductos() {

@@ -1,6 +1,7 @@
 package controladores;
 
 import java.io.File;
+import java.io.Serializable;
 
 import cliente.interfaz.admin.VerificadorLogin;
 import datos.Peticion;
@@ -12,7 +13,7 @@ import datos.Producto;
  * proveinentes del servidor
  * @author Esteban
  */
-public class ServerPetition {
+public class ServerPetition implements Serializable{
     private AdminPedidos adminPedidos;
     private AdminProductos adminProductos;
     

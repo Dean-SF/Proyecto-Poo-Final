@@ -139,42 +139,29 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
      * las diferentes tablas del menu
      */
     private void eliminarProducto(){
-        String texto = String.valueOf(productos.getSelectedItem());
-        String[] nombre = texto.split(" ");
-        Peticion peticion = pedirLista();
-        productosLista = (LinkedList<Producto>)peticion.getDatos();
-        if(nuevos.size()==0){
-            JOptionPane.showMessageDialog(this, "La lista de productos selecionados esta vacia","Error",
-                        JOptionPane.ERROR_MESSAGE);
-                        return;
-        }
-        if(String.valueOf(cantidad.getText()).isBlank()){
-            JOptionPane.showMessageDialog(this, "Debe de colocar un numero a eliminar","Error",
-                        JOptionPane.ERROR_MESSAGE);
-                        return;
-        }
-        if(nombre[1].equals(actual.getNombre())){
-            int numero = Integer.parseInt(cantidad.getText());
-            if(dentroNuevos(nombre[1])!=-1){
-                int pos = dentroNuevos(nombre[1]);
-                if(numero>nuevos.get(pos).getValue()){
-                    JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
-                    JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if(numero==nuevos.get(pos).getValue()){
-                    nuevos.remove(pos);
-                }else{
-                    nuevos.get(pos).setValue(nuevos.get(pos).getValue()-numero);
-                }
-            }else{
-                JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
+        Producto actual = (Producto)productos.getSelectedItem();
+        int numero = Integer.parseInt(cantidad.getText());
+        if(dentroNuevos(actual.getNombre())!=-1){
+            int pos = dentroNuevos(actual.getNombre());
+            if(numero>nuevos.get(pos).getValue()){
+                JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            agregarSelecionados();
-            setCantidadesMenos(actual,numero);
+            if(numero==nuevos.get(pos).getValue()){
+                nuevos.remove(pos);
+            }else{
+                nuevos.get(pos).setValue(nuevos.get(pos).getValue()-numero);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "El producto no esta en la lista","Error",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        agregarSelecionados();
+        setCantidadesMenos(actual,numero);
     }
+    
     /***
      * Metodo que carga la tabla de los productos  selecionados
      */
