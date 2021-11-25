@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
- *
+ * Clase que administra los pedidos y la cantidad realizada de estos
  * @author Esteban
  */
 public class AdminPedidos {
@@ -20,14 +20,25 @@ public class AdminPedidos {
         pedidos = new ArrayList<Pedido>();
         cantidad = 0;
     }
-    
+    /***
+     * agrega un producto a la lista de productos y le suma a la cantidad de pedidos
+     * @param pedido
+     * @return boolean
+     */
     public boolean agregarPedido(Pedido pedido){
         if(consultarPedido(pedido.getCodigo())==null){
             pedidos.add(pedido);
+            cantidad+=1;
             return true;
         }
         return false;
     }
+    /***
+     * Consulta un pedido mediante el codigo y si existe retorna el pedido si
+     * no retorna null
+     * @param codigo
+     * @return Pedido
+     */
     public Pedido consultarPedido(String codigo){
         Pedido temp;
         for(int i = 0; i<pedidos.size(); i++){
@@ -38,6 +49,11 @@ public class AdminPedidos {
         }
         return null;
     }
+    /***
+     * Metodo que elimina un pedido de la lista de pedidos
+     * @param codigo
+     * @return boolean
+     */
     public boolean eliminarPedido(String codigo){
         Pedido temp = consultarPedido(codigo);
         if(temp!=null){
@@ -49,6 +65,11 @@ public class AdminPedidos {
     public ArrayList<Pedido> getPedidos(){
         return pedidos;
     }
+    /***
+     * Metodo que devulve una lista con los productos mas vendidos 
+     * dentro de los pedidos
+     * @return ArrayList-Producto
+     */
     public ArrayList<Producto> topVendidos(){
         ArrayList<KVPair<Producto,Integer>> top = new ArrayList<KVPair<Producto,Integer>>();
         ArrayList<String> codigos = new  ArrayList<String>();
@@ -65,13 +86,6 @@ public class AdminPedidos {
                     codigos.add(tempPair.getKey().getCodigo());
                     top.add(tempPair);
                 }
-                /*if(!(tempL.contains(tempP.getProductos().get(j).getKey()))){
-                    tempL.add(tempP.getProductos().get(j).getKey());
-                    top.add(tempP.getProductos().get(j));
-                }else{
-                    int pos = tempL.indexOf(tempP.getProductos().get(j).getKey());
-                    top.get(pos).setValue(top.get(pos).getValue()+tempP.getProductos().get(j).getValue());
-                }*/
             }
         }
         Collections.sort(top, new Comparator<KVPair<Producto,Integer>>(){
@@ -93,6 +107,12 @@ public class AdminPedidos {
         }
         return topFinal;
     }
+    /***
+     * Metodo que retorna una lista con los productos no vendidos segun los 
+     * productos pedidos y la lista total de productos
+     * @param productos
+     * @return ArrayList-Producto
+     */
     public ArrayList<Producto> noVendidos(LinkedList<Producto> productos){
         ArrayList<Producto> vendidos = new ArrayList<Producto>();
         ArrayList<String> codigos = new  ArrayList<String>();
@@ -116,6 +136,11 @@ public class AdminPedidos {
         }
         return noVendidos;
     }
+    /***
+     * Metodo que cuenta la cantidad de pedidos de cada tipo y retorna un []
+     * con tres numero, [0] para sitio, [1] para recoger y [2] para express 
+     * @return int[]
+     */
     public int[] cantidadTipos(){
         int[] cantidades = {0,0,0};
         Pedido temp;
@@ -131,6 +156,10 @@ public class AdminPedidos {
         }
         return cantidades;
     }
+    /***
+     * Metodo que retorna la cantidad total de pedidos realizados
+     * @return 
+     */
     public int cantidadPedidos(){
         return cantidad;
     }

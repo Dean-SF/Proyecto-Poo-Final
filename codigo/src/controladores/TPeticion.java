@@ -1,7 +1,8 @@
 package controladores;
 
 /**
- *
+ * Enumeracion que permite saber que tipo de operacion se va a realizar en el
+ * serverPetition segun el tipo de peticion.
  * @author Esteban
  */
 public enum TPeticion {

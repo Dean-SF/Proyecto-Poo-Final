@@ -16,13 +16,17 @@ import datos.Peticion;
 import servidor.interfaz.ServerInterface;
 
 /**
- *
+ * Clase que crea un servidor para poder comunicar tanto serverPetition con la
+ * interfaz de administracion y usuario
  * @author DeanSF
  */
 public class Servidor {
     private boolean encendido = true;
     private ServerPetition interprete = new ServerPetition();
     private Thread proceso;
+    /***
+     * Contructor del servidor
+     */
     public Servidor() {
         proceso = new Thread( new Runnable() {
            @Override
@@ -57,6 +61,10 @@ public class Servidor {
         });
         proceso.start();
     }
+    /***
+     * Metodo que apaga el servidor y envia un mensaje al usario
+     * de que se cerro correctamente o por un error.
+     */
     public void apagar() {
         this.encendido = false;
         try {

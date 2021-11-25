@@ -13,6 +13,10 @@ import javax.swing.JTextArea;
 import cliente.interfaz.fonts.Fonts;
 import servidor.Servidor;
 
+/***
+ * Clase que crea la interfaz para el servidor
+ * @author Deyan
+ */
 public class ServerInterface implements ActionListener{
     private static Servidor server = null;
     private JLabel lDebug = new JLabel("DEBUG:");
@@ -21,7 +25,11 @@ public class ServerInterface implements ActionListener{
     private JButton iniciar = new JButton("Iniciar");
     private JButton parar = new JButton("Parar");
     private JFrame frame = new JFrame();
-
+    
+    /***
+     * Contructor del serverInterface con sus dos botones la caja de texto y 
+     * demas detalles de la ventana
+     */
     public ServerInterface() {
         frame.setTitle("Proyecto 2 - Programación Orientada a Objetos - Servidor");
         frame.setSize(640, 435);
@@ -53,7 +61,12 @@ public class ServerInterface implements ActionListener{
         frame.add(parar);
 
     }
-
+    
+    /***
+     * Metodo que toma el actionListener de cada boton y ejecuta una accion 
+     * segun este mismo
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == iniciar) {
@@ -74,7 +87,11 @@ public class ServerInterface implements ActionListener{
         }
         
     }
-
+    
+    /***
+     * Metodo que imprime un mensaje en la caja de texto
+     * @param mensaje 
+     */
     public static void mensajeDebug(String mensaje) {
         debug.setText(mensaje);
         server = null;

@@ -8,7 +8,8 @@ import datos.Pedido;
 import datos.Producto;
 
 /**
- *
+ * Clase que administra el adminPedidos y Productos y controla los pedidos 
+ * proveinentes del servidor
  * @author Esteban
  */
 public class ServerPetition {
@@ -19,7 +20,13 @@ public class ServerPetition {
         adminPedidos = new AdminPedidos();
         adminProductos = new AdminProductos();
     }
-    
+    /***
+     * Metodo que toma una peticio y segun el TPeticion dentro de esta
+     * realiaza una funcionalidad llamando a un metodo de los dos paramatros
+     * con la respusta de estos mismos
+     * @param peticion
+     * @return Peticion
+     */
     public Peticion serverPeticion(Peticion peticion){
         TPeticion tipo = peticion.getPeticion();
         if(tipo == TPeticion.ESTA_ENCENDIDO) {
