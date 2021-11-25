@@ -15,6 +15,8 @@ import java.util.LinkedList;
  * @author Esteban
  */
 public class AdminPedidos implements Serializable{
+    private static double porRecoger = 0.1;
+    private static double porExpress = 500;
     private ArrayList<Pedido> pedidos;
     private int cantidad;
 
@@ -164,5 +166,21 @@ public class AdminPedidos implements Serializable{
      */
     public int cantidadPedidos(){
         return cantidad;
+    }
+
+    public static void setPorExpress(double porExpress) {
+        AdminPedidos.porExpress = porExpress;
+    }
+
+    public static void setPorRecoger(double porRecoger) {
+        AdminPedidos.porRecoger = porRecoger;
+    }
+
+    public static double getPorExpress() {
+        return porExpress;
+    }
+
+    public static double getPorRecoger() {
+        return porRecoger;
     }
 }

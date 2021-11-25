@@ -16,6 +16,7 @@ import controladores.ServerPetition;
 import controladores.TPeticion;
 import datos.IConstantes;
 import datos.Peticion;
+import servidor.interfaz.Historial;
 import servidor.interfaz.ServerInterface;
 
 /**
@@ -27,7 +28,7 @@ public class Servidor {
     private boolean encendido = true;
     private ServerPetition interprete;
     private Thread proceso;
-    private String historial;
+    private static String historial = "";
     /***
      * Contructor del servidor
      */
@@ -46,9 +47,9 @@ public class Servidor {
                         
                         ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
                         
-                        
                         Peticion peticion = (Peticion) entrada.readObject();
                         historial(peticion);
+                        Historial.actualizarHistorial();
                         if(peticion.getPeticion() == TPeticion.APAGAR)
                             break;
 
@@ -95,7 +96,6 @@ public class Servidor {
             salida.writeObject(interprete);
             salida.close();
         } catch (IOException e) {
-            System.out.println("error de guardado");
             ServerInterface.mensajeDebug(e.toString());
             return;
         }
@@ -106,16 +106,17 @@ public class Servidor {
             FileInputStream archivo = new FileInputStream("./src/servidor/data/data.dat");
             ObjectInputStream entrada = new ObjectInputStream(archivo);
             interprete = (ServerPetition)entrada.readObject();
-            System.out.println("cargo bien");
             entrada.close();
         } catch (IOException e) {
-            System.out.println("error de carga");
             String mensaje = "Archivo de lectura aun no creado.\nEl error: " + e + " fue detenido";
             ServerInterface.mensajeErrorDetenido(mensaje);
         } catch(ClassNotFoundException e) {
-            System.out.println("error de carga");
             ServerInterface.mensajeDebug(e.toString());
         }
+    }
+
+    public static String getHistorial() {
+        return historial;
     }
 
     private void historial(Peticion peticion) {
@@ -173,6 +174,12 @@ public class Servidor {
             break;
         case MODRECOGER:
             historial += "\nSe modifico el porcentaje extra por empaquetado";
+            break;
+        case RECOGER:
+            historial += "\nSe solicito el porcentaje extra por empaquetado";
+            break;
+        case EXPRESS:
+            historial += "\nSe solicito el monto extra por express";
             break;
         default:
             historial += "\nSe realiza una peticion no existente";

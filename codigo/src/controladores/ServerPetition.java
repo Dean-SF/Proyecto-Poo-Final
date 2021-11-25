@@ -76,16 +76,13 @@ public class ServerPetition implements Serializable{
         }else if(tipo==TPeticion.CONSULTAR_LISTA_PROD){
             peticion.setDatos(adminProductos.getProductos());
             return peticion;
-        }else if(tipo==TPeticion.LISTA_TOP){
-            System.out.println("Top");   
+        }else if(tipo==TPeticion.LISTA_TOP){  
             peticion.setDatos(adminPedidos.topVendidos());
             return peticion;
         }else if(tipo==TPeticion.LISTA_SIN_PEDIR){
-            System.out.println("Sin");
             peticion.setDatos(adminPedidos.noVendidos(adminProductos.getProductos()));
             return peticion;
         }else if(tipo==TPeticion.CANTIDADES){
-            System.out.println("Can");
             peticion.setDatos(adminPedidos.cantidadTipos());
             return peticion;
         }else if(tipo == TPeticion.INGRESAR){
@@ -99,15 +96,20 @@ public class ServerPetition implements Serializable{
             return peticion;
         }else if(tipo==TPeticion.MODEXPRESS) {
             int express = (Integer)peticion.getDatos();
-            Pedido.setPorExpress(express);
+            AdminPedidos.setPorExpress(express);
             return peticion;
         }else if(tipo==TPeticion.MODRECOGER) {
             Double recoger = (Double)peticion.getDatos();
-            Pedido.setPorRecoger(recoger);
+            AdminPedidos.setPorRecoger(recoger);
+            return peticion;
+        }else if(tipo == TPeticion.EXPRESS) {
+            peticion.setDatos(AdminPedidos.getPorExpress());
+            return peticion;
+        }else if(tipo == TPeticion.RECOGER) {
+            peticion.setDatos(AdminPedidos.getPorRecoger());
             return peticion;
         }
         peticion.setDatos(null);
-        System.out.println("A");
         return peticion;
             
     }

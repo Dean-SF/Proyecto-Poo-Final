@@ -118,8 +118,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
             tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
         } catch(Exception e){
-            System.out.println(e);
-            JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
+            JOptionPane.showMessageDialog(this, "Ocurrio el error: " + e,"Error",
             JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -261,9 +260,7 @@ public class ManejoProductos extends JPanel implements ActionListener{
             agregarProducto();
         }else if(e.getSource() == selImagen) {
             imagen.setSelectedFile(null);
-            System.out.println(imagen.getSelectedFile());
             imagen.showOpenDialog(this);
-            System.out.println(imagen.getSelectedFile());
         }else if(e.getSource() == bExpress) {
             cambiarPorExpress();
         }else if(e.getSource() == bRecoger) {
