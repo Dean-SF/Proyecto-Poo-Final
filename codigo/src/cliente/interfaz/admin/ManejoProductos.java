@@ -22,7 +22,6 @@ import cliente.interfaz.GestorVentanas;
 import cliente.interfaz.fonts.Fonts;
 import controladores.TModificacion;
 import controladores.TPeticion;
-import datos.Pedido;
 import datos.Peticion;
 import datos.Producto;
 import datos.ProductoBuilder;
@@ -256,18 +255,45 @@ public class ManejoProductos extends JPanel implements ActionListener{
             imagen.showOpenDialog(this);
             System.out.println(imagen.getSelectedFile());
         }else if(e.getSource() == bExpress) {
-            
+            cambiarPorExpress();
         }else if(e.getSource() == bRecoger) {
-            
+            cambiarPorRecoger();
         }
         
     }
 
     public void cambiarPorExpress() {
         int numero = verifNumPos(porExpress.getText());
-        if(numero != -1) {
-            
+        if(numero == -1) {
+            JOptionPane.showMessageDialog(this, "Introduzca un numero igual o mayor a 0","ERROR", 
+            JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        Cliente.enviarPeticion(new Peticion(TPeticion.MODEXPRESS, numero));
+        JOptionPane.showMessageDialog(this, "Se cambio el monto extra por express","ENHORABUENA", 
+        JOptionPane.INFORMATION_MESSAGE);
+        porExpress.setText("");
+    }
+
+    public void cambiarPorRecoger() {
+        double numero;
+        try {
+            numero = Double.parseDouble(porRecoger.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Introduzca numeros","ERROR", 
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(numero > 100 || numero < 0) {
+            JOptionPane.showMessageDialog(this, "El porcentaje va de 0 a 100","ERROR", 
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        numero /= 100;
+        Cliente.enviarPeticion(new Peticion(TPeticion.MODRECOGER, numero));
+        JOptionPane.showMessageDialog(this, "Se cambio el porcentaje extra por empaque","ENHORABUENA", 
+        JOptionPane.INFORMATION_MESSAGE);
+        porRecoger.setText("");
     }
 
     public void eliminarProducto() {

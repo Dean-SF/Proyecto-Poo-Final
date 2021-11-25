@@ -92,7 +92,7 @@ public class Pedidos extends JPanel implements ActionListener{
     }
     
     /**
-    * Constructoder de la ventana con los botones y el JTable.
+    * Constructor de la ventana con los botones y el JTable.
     */
     public Pedidos(){
         // Setup

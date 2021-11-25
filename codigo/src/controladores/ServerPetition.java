@@ -101,7 +101,7 @@ public class ServerPetition {
             Pedido.setPorExpress(express);
             return peticion;
         }else if(tipo==TPeticion.MODRECOGER) {
-            int recoger = (Integer)peticion.getDatos();
+            Double recoger = (Double)peticion.getDatos();
             Pedido.setPorRecoger(recoger);
             return peticion;
         }

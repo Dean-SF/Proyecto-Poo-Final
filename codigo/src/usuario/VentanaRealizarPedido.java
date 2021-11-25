@@ -217,6 +217,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         caloriasLabel.setText("Calorias: "+caloriasTotal);
     }
     
+    @SuppressWarnings("static-access")
     private void pedirPedido(){
         if(nuevos.size()==0){
             JOptionPane.showMessageDialog(this, "Debe de elegir un producto","Error",
@@ -462,6 +463,11 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
 
     private void mostrarImagen() throws IOException {
         String codigo = (String)productos.getSelectedItem();
+        if(codigo == null) {
+            JOptionPane.showMessageDialog(this, "No hay un producto valido seleccionado","ERROR",
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         codigo = codigo.substring(0, 7);
         Peticion retorno = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PROD, codigo));
         File archivo = ((Producto)retorno.getDatos()).getImagen();

@@ -85,14 +85,16 @@ public class Pedido implements Serializable{
         return recoger;
     }
 
-    public double getPorRecoger() {
+    public static double getPorRecoger() {
         return porRecoger;
     }
 
-    public double getPorExpress() {
+    public static double getPorExpress() {
         return porExpress;
     }
     
+    
+
     public ArrayList<KVPair<Producto, Integer>> getProductos() {
         return productos;
     }
