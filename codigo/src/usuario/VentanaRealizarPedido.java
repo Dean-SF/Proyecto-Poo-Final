@@ -111,7 +111,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         Producto temp;
         for(int i =0; i<nuevos.size();i++){
             temp = nuevos.get(i).getKey();
-            if(temp.getNombre().equals(nombre)){
+            if(temp.getCodigo().equals(nombre)){
                 return i;
             }
         }
@@ -124,8 +124,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private void agregarProduto(){
         Producto actual = (Producto)productos.getSelectedItem();
         int numero = Integer.parseInt(cantidad.getText());
-        if(dentroNuevos(actual.getNombre())!=-1){
-            int pos = dentroNuevos(actual.getNombre());
+        if(dentroNuevos(actual.getCodigo())!=-1){
+            int pos = dentroNuevos(actual.getCodigo());
             nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
         }else{
             KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
@@ -141,8 +141,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     private void eliminarProducto(){
         Producto actual = (Producto)productos.getSelectedItem();
         int numero = Integer.parseInt(cantidad.getText());
-        if(dentroNuevos(actual.getNombre())!=-1){
-            int pos = dentroNuevos(actual.getNombre());
+        if(dentroNuevos(actual.getCodigo())!=-1){
+            int pos = dentroNuevos(actual.getCodigo());
             if(numero>nuevos.get(pos).getValue()){
                 JOptionPane.showMessageDialog(this, "La cantidad a eliminar es mayor","Error",
                 JOptionPane.ERROR_MESSAGE);
@@ -199,7 +199,6 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
      * Metodo que valida todos los  datos y segun esto contruye el pedido y lo
      * agrega a la lista de los diferentes pedidos
      */
-    @SuppressWarnings("static-access")
     private void pedirPedido(){
         if(nuevos.size()==0){
             JOptionPane.showMessageDialog(this, "Debe de elegir un producto","Error",
@@ -238,13 +237,19 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         if(recogida.equals("Recoger")){
             tipo = TRecoger.RECOGER;
+            peticion = Cliente.enviarPeticion(new Peticion(TPeticion.RECOGER, ""));
+            double porRecoger = (Double)peticion.getDatos();
             temp.celular(celularInt)
-                .precio(((double)precioTotal+((double)precioTotal*nuevo.getPorRecoger())));
+                .precio(((double)precioTotal+((double)precioTotal*porRecoger)));
         }else if(recogida.equals("Express")){
             tipo = TRecoger.EXPRESS;
+            peticion = Cliente.enviarPeticion(new Peticion(TPeticion.RECOGER, ""));
+            double porRecoger = (Double)peticion.getDatos();
+            peticion = Cliente.enviarPeticion(new Peticion(TPeticion.EXPRESS, ""));
+            double porExpress = (Double)peticion.getDatos();
             temp.celular(celularInt).direccion(direccion)
                                     .precio(((double)precioTotal+((double)precioTotal*
-                                    nuevo.getPorRecoger())+nuevo.getPorExpress()));
+                                    porRecoger)+porExpress));
         }
         nuevo = temp.recoger(tipo).buildPedido();
         nuevo.setProductos(nuevos);
@@ -302,7 +307,6 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         productosSeleccionadosLabel.setBounds(50,270,300,30);
         
         productosSeleccionados.setFont(new Font("Segoe UI",Font.PLAIN,20));
-        productosSeleccionados.setEnabled(false);
         pane.setBounds(50,320,300,100);
         
         caloriasLabel.setFont(new Font("Segoe UI",Font.PLAIN,20));

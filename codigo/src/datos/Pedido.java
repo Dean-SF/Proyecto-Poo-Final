@@ -13,8 +13,6 @@ import java.util.ArrayList;
  * @author Esteban
  */
 public class Pedido implements Serializable{
-    private static double porRecoger = 0.1;
-    private static double porExpress = 500;
     private String codigo;
     private Usuario usuario;
     private double precio;
@@ -56,14 +54,6 @@ public class Pedido implements Serializable{
     public void setProductos(ArrayList<KVPair<Producto, Integer>> productos) {
         this.productos = productos;
     }
-
-    public static void setPorRecoger(double porRecoger) {
-        Pedido.porRecoger = porRecoger;
-    }
-
-    public static void setPorExpress(double porExpress) {
-        Pedido.porExpress = porExpress;
-    }
     
     public String getCodigo() {
         return codigo;
@@ -83,14 +73,6 @@ public class Pedido implements Serializable{
 
     public TRecoger getRecoger() {
         return recoger;
-    }
-
-    public static double getPorRecoger() {
-        return porRecoger;
-    }
-
-    public static double getPorExpress() {
-        return porExpress;
     }
     
     

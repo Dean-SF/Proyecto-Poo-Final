@@ -101,8 +101,7 @@ public class Catalogo extends JPanel implements ActionListener{
             tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
         } catch(Exception e){
-            System.out.println(e);
-            JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
+            JOptionPane.showMessageDialog(this, "Ocurrio el error: " + e,"Error",
             JOptionPane.ERROR_MESSAGE);
             return;
         }

@@ -82,9 +82,8 @@ public class Ingreso extends JPanel implements ActionListener{
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }else{
-                Peticion login = new Peticion(TPeticion.INGRESAR, fNombre.getText()+"-"+fClave.getText());
-                Cliente conexion = new Cliente(login);
-                boolean respuesta = (boolean) conexion.getRespuestaServer();
+                Peticion conexion = Cliente.enviarPeticion(new Peticion(TPeticion.INGRESAR, fNombre.getText()+"-"+fClave.getText()));
+                boolean respuesta = (boolean) conexion.getDatos();
                 if(respuesta){
                     GestorVentanas.abrirAdminMenu(); // cambiar esto para comprobar el inicio de sesion
                 }else{

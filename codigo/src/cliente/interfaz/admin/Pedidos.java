@@ -53,9 +53,7 @@ public class Pedidos extends JPanel implements ActionListener{
             DefaultTableModel modeloTabla = new DefaultTableModel(titulos, pedidos.size());
             String productosD;
             ArrayList<KVPair<Producto, Integer>> listaProductos;
-            System.out.println(pedidos.size());
             for(int  i = 0; i<pedidos.size(); i++){
-                System.out.println(i);
                 Pedido actual = pedidos.get(i);
                 productosD = "";
                 listaProductos = actual.getProductos();
@@ -79,16 +77,13 @@ public class Pedidos extends JPanel implements ActionListener{
                 modeloTabla.setValueAt(actual.getPrecio(), i, 3);
                 modeloTabla.setValueAt(actual.getCalorias(), i, 4);
             }
-            System.out.println("1");
             tabla.setModel(modeloTabla);
-            System.out.println("1");
             tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(2).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
             tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
         } catch(Exception e){
-            System.out.println(e);
             JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
             JOptionPane.ERROR_MESSAGE);
             return;
