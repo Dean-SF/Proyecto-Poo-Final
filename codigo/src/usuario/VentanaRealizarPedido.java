@@ -41,7 +41,7 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     
     //productos
     private JLabel listaProductosLabel = new JLabel("Lista de Productos");
-    private JComboBox<String> productos = new JComboBox<String>();
+    private JComboBox<Producto> productos = new JComboBox<Producto>();
    
     private JLabel cantidadLabel = new JLabel("Cantidad:");
     private JTextField cantidad = new JTextField();
@@ -90,28 +90,13 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         return Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_LISTA_PROD,""));
     }
     
-    private String saberTipo(String texto){
-        texto = texto.substring(0,3);
-        if(texto.equals("ENT")) {
-            return "Entrada";
-        }else if(texto.equals("PRN")){
-            return "Princippal";
-        }else if(texto.equals("PTR")){
-            return "Postre";
-        }else if(texto.equals("BEB")){
-            return "Bebida";
-        }
-        return "";
-    }
-    
     public void cargarLista(){
         productos.removeAllItems();
         Peticion peticion = pedirLista();
         productosLista = (LinkedList<Producto>)peticion.getDatos();
         for(int  i = 0; i<productosLista.size(); i++){
             Producto actual = productosLista.get(i);
-            String temp = saberTipo(actual.getCodigo()) + " " + actual.getNombre();
-            productos.addItem(temp);
+            productos.addItem(actual);
         }
     }
     
@@ -127,29 +112,17 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     }
     
     private void agregarProduto(){
-        String texto = String.valueOf(productos.getSelectedItem());
-        String[] nombre = texto.split(" ");
-        Peticion peticion = pedirLista();
-        productosLista = (LinkedList<Producto>)peticion.getDatos();
-        for(int  i = 0; i<productosLista.size(); i++){
-            Producto actual = productosLista.get(i);
-            System.out.println(nombre[1]);
-            System.out.println(actual.getNombre());
-            if(nombre[1].equals(actual.getNombre())){
-                int numero = Integer.parseInt(cantidad.getText());
-                if(dentroNuevos(nombre[1])!=-1){
-                    int pos = dentroNuevos(nombre[1]);
-                    nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
-                    System.out.println(actual.getNombre()+":"+nuevos.get(pos).getValue());
-                }else{
-                    KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
-                    nuevos.add(temp);
-                    System.out.println(actual.getNombre()+":"+numero);
-                }
-                agregarSelecionados();
-                setCantidadesMas(actual,numero);
-            }
+        Producto actual = (Producto)productos.getSelectedItem();
+        int numero = Integer.parseInt(cantidad.getText());
+        if(dentroNuevos(actual.getNombre())!=-1){
+            int pos = dentroNuevos(actual.getNombre());
+            nuevos.get(pos).setValue(numero+nuevos.get(pos).getValue());
+        }else{
+            KVPair<Producto, Integer> temp = new KVPair<Producto, Integer>(actual,numero);
+            nuevos.add(temp);
         }
+        agregarSelecionados();
+        setCantidadesMas(actual,numero);
     }
     
     private void eliminarProducto(){
@@ -462,15 +435,8 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
     }
 
     private void mostrarImagen() throws IOException {
-        String codigo = (String)productos.getSelectedItem();
-        if(codigo == null) {
-            JOptionPane.showMessageDialog(this, "No hay un producto valido seleccionado","ERROR",
-            JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        codigo = codigo.substring(0, 7);
-        Peticion retorno = Cliente.enviarPeticion(new Peticion(TPeticion.CONSULTAR_PROD, codigo));
-        File archivo = ((Producto)retorno.getDatos()).getImagen();
+        Producto actual = (Producto)productos.getSelectedItem();
+        File archivo = actual.getImagen();
         BufferedImage img = ImageIO.read(archivo);
         BufferedImage newImg = Scalr.resize(img,190);
         ImageIcon labelImage = new ImageIcon(newImg);
@@ -504,15 +470,6 @@ public class VentanaRealizarPedido extends JPanel implements ActionListener{
         }
         if(e.getSource()== eliminar){
             eliminarProducto();
-        }
-        if(e.getSource()== express){
-            //GestorVentanas.abrirMenuRegistro();
-        }
-        if(e.getSource()== local){
-            //GestorVentanas.abrirMenuRegistro();
-        }
-        if(e.getSource()== recoger){
-            //GestorVentanas.abrirMenuRegistro();
         }
         if(e.getSource() == mImagen) {
             try {
