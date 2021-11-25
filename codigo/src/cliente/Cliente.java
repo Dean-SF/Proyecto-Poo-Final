@@ -17,7 +17,7 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase para inicializar la interfaz del programa cliente
  * @author DeanSF
  */
 public class Cliente {
