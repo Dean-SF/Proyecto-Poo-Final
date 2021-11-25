@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import cliente.interfaz.admin.AdminMenu;
+import cliente.interfaz.admin.AtenderPedidos;
 import cliente.interfaz.admin.Catalogo;
 import cliente.interfaz.admin.EstadisticasPedidos;
 import cliente.interfaz.admin.Ingreso;
@@ -31,6 +32,7 @@ public class GestorVentanas{
     private static Pedidos pedidos = new Pedidos();
     private static ManejoProductos adminProductos = new ManejoProductos();
     private static EstadisticasPedidos estadisticas = new EstadisticasPedidos();
+    private static AtenderPedidos atender = new AtenderPedidos();
     
     //ventanas de cliente
     private static MenuCliente menuCliente = new MenuCliente();
@@ -58,6 +60,7 @@ public class GestorVentanas{
         frame.add(pedidos);
         frame.add(adminProductos);
         frame.add(estadisticas);
+        frame.add(atender);
         
         frame.add(menuCliente);
         frame.add(eliminarPedido);
@@ -172,7 +175,16 @@ public class GestorVentanas{
         frame.setSize(realizarPedido.getSize());
         frame.setLocationRelativeTo(null);
     }
-    
+    /***
+     * LLama a la ventana de atender un pedido
+     */
+    static public void atenderPedido() {
+        administracion.setVisible(false);
+        atender.setVisible(true);
+        historial.push(atender);
+        frame.setSize(atender.getSize());
+        frame.setLocationRelativeTo(null);
+    }
     
     
 }
