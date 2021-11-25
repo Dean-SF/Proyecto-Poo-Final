@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * Clase para recrear un pedido con sus diferentes atributos mas los set y get 
+ * con el contructor y algunos metodos mas.
  * @author Esteban
  */
 public class Pedido implements Serializable{

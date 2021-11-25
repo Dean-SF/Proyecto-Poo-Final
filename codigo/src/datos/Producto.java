@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- *
+ * Clase sobre un producto comestible de una tienda
+ * Solo contiene los dos constructores y los set y get basicos.
  * @author DeanSF
  */
 public class Producto implements Serializable{

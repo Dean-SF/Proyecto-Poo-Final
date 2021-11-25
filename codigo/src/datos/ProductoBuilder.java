@@ -3,7 +3,10 @@ package datos;
 import java.io.File;
 
 /**
- *
+ * Clase que contruye un producto con sus diferentes atributos
+ * y contiene todos los set, que en este caso retornan ProductoBuilder y
+ * el this correspondiente al atribto del metodo para hacer un set a la
+ * misma clase de esta menera.
  * @author Esteban
  */
 public class ProductoBuilder {
@@ -17,6 +20,10 @@ public class ProductoBuilder {
    private File imagen;
    
    public ProductoBuilder(){};
+   /**
+    * Crea un producto con sus diferentes atributos y lo retorna
+    * @return Prodcuto
+    */
     public Producto buildProducto(){
         Porcion temp = new Porcion(cantidad,size,calorias);
         return new Producto(codigo,nombre,descripcion,temp,precio,imagen);

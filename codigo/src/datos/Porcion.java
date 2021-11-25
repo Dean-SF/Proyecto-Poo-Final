@@ -3,7 +3,8 @@ package datos;
 import java.io.Serializable;
 
 /**
- *
+ * Clase que  ejemplifica la porcion de comida de un producto
+ * y con tiene sus atributos con los set y get basicos.
  * @author Esteban
  */
 public class Porcion implements Serializable{

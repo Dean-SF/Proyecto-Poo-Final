@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import controladores.TPeticion;
 
+/***
+ * Clase peticion que se usa para mandar una peticion a travez del servidor
+ * con tiene un tipo peticion y un dato con sus set y get.
+ * @author Esteban
+ */
 public class Peticion implements Serializable{
     private TPeticion peticion;
     private Object datos;

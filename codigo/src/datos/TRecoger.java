@@ -6,7 +6,7 @@
 package datos;
 
 /**
- *
+ * Enumeracion para los tipos de recogida de un pedido.
  * @author Esteban
  */
 public enum TRecoger {

@@ -4,13 +4,22 @@ import java.io.File;
 import java.util.LinkedList;
 import datos.Producto;
 
+/***
+ * Clase que se encarga del manejo de los diferentes produtos.
+ * @author Deyan
+ */
 public class AdminProductos {
     private LinkedList<Producto> productos;
 
     AdminProductos() {
         productos = new LinkedList<Producto>();
     }
-
+    /***
+     * Metodo que agrega un un producto a la lista de producto
+     * si esta no esta agregado
+     * @param producto
+     * @return boolean
+     */
     public boolean agregarProducto(Producto producto) {
         if(consultarProducto(producto.getCodigo()) != null) {
             return false;
@@ -18,7 +27,12 @@ public class AdminProductos {
         productos.add(producto);
         return true;
     }
-
+    /***
+     * Metodo que consulta un producto mediante su codigo, si este esta
+     * retorna el producto si no retorna null.
+     * @param codigo
+     * @return Prodcuto
+     */
     public Producto consultarProducto(String codigo) {
         for(Producto actual : productos) {
             if(actual.getCodigo().equals(codigo)) {
@@ -27,7 +41,14 @@ public class AdminProductos {
         }
         return null;
     }
-
+    /***
+     * Metodo que modifica un producto segun el parametro de entrada (string) y el
+     * tipo de modificacion
+     * @param codigo
+     * @param tipo
+     * @param valor
+     * @return boolean
+     */
     public boolean modificarProducto(String codigo,TModificacion tipo, String valor) {
         Producto producto = consultarProducto(codigo);
         if(producto == null) {
@@ -48,6 +69,14 @@ public class AdminProductos {
         }
 
     }
+    /***
+     * Metodo que modifica un producto segun el parametro de entrada (int) y el
+     * tipo de modificacion
+     * @param codigo
+     * @param tipo
+     * @param valor
+     * @return boolean
+     */
     public boolean modificarProducto(String codigo,TModificacion tipo, int valor) {
         Producto producto = consultarProducto(codigo);
         if(producto == null) {
@@ -71,7 +100,13 @@ public class AdminProductos {
 
         }
     }
-
+    /***
+     * Metodo que modifica la imagen de un producto 
+     * @param codigo
+     * @param tipo
+     * @param imagen
+     * @return boolean
+     */
     public boolean modificarProducto(String codigo,TModificacion tipo, File imagen) {
         Producto producto = consultarProducto(codigo);
         if(producto == null) {
@@ -83,7 +118,11 @@ public class AdminProductos {
         }
         return false;
     }
-
+    /***
+     * Metodo que elimina un producto de la lista de productos
+     * @param codigo
+     * @return 
+     */
     public boolean eliminarProducto(String codigo) {
         Producto producto = consultarProducto(codigo);
         if(producto == null) {

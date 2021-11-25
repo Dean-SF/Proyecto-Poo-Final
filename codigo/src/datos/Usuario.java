@@ -3,7 +3,8 @@ package datos;
 import java.io.Serializable;
 
 /**
- *
+ *  Clase que  ejemplifica un usuario un pedido
+ * y con tiene sus atributos con los set y get basicos.
  * @author Esteban
  */
 public class Usuario implements Serializable{

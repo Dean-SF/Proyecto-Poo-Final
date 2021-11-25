@@ -1,7 +1,10 @@
 package datos;
 
 /**
- *
+ * Clase que contruye un pedido con sus diferentes atributos
+ * y contiene todos los set, que en este caso retornan PedidoBuilder y
+ * el this correspondiente al atribto del metodo para hacer un set a la
+ * misma clase de esta menera.
  * @author Esteban
  */
 public class PedidoBuilder {
@@ -14,6 +17,10 @@ public class PedidoBuilder {
     private TRecoger recoger; 
     
     public PedidoBuilder(){};
+    /**
+    * Crea un pedido con sus diferentes atributos y lo retorna
+    * @return Pedido
+    */
     public Pedido buildPedido(){
         Usuario temp = new Usuario(nombre, celular, direccion);
         return new Pedido(codigo,temp,precio,calorias,recoger);
