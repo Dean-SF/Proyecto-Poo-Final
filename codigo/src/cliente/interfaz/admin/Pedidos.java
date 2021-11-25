@@ -30,8 +30,8 @@ public class Pedidos extends JPanel implements ActionListener{
     private JButton volver = new JButton("Volver");
     private JButton graficar = new JButton("Graficar");
     private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-    private String [] titulos = {"Codigo", "Nombre","Productos","Precio","Calorias"};
-    private Object [][] datos = {{null,null,null,null,null}};
+    private String [] titulos = {"Codigo", "Nombre","Telefono","Direccion", "Productos","Precio","Calorias"};
+    private Object [][] datos = {{null,null,null,null,null,null,null}};
     private JTable tabla = new JTable(datos,titulos);
     private JScrollPane pane = new JScrollPane(tabla);
     
@@ -66,16 +66,13 @@ public class Pedidos extends JPanel implements ActionListener{
                 }
                 modeloTabla.setValueAt(actual.getCodigo(), i, 0);
                 modeloTabla.setValueAt(actual.getUsuario().getNombre(), i, 1); 
-                modeloTabla.setValueAt(productosD,i,2);
-                modeloTabla.setValueAt(actual.getPrecio(), i, 3);
-                modeloTabla.setValueAt(actual.getCalorias(), i, 4);
+                modeloTabla.setValueAt(actual.getUsuario().getCelular(), i, 2);
+                modeloTabla.setValueAt(actual.getUsuario().getDireccion(), i, 3);
+                modeloTabla.setValueAt(productosD,i,4);
+                modeloTabla.setValueAt(actual.getPrecio(), i, 5);
+                modeloTabla.setValueAt(actual.getCalorias(), i, 6);
             }
             tabla.setModel(modeloTabla);
-            tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
-            tabla.getColumnModel().getColumn(4).setPreferredWidth(20);
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Esto no deberia de estar aqui","Error",
             JOptionPane.ERROR_MESSAGE);

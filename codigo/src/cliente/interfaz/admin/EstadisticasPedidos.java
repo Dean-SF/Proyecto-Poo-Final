@@ -74,13 +74,13 @@ public class EstadisticasPedidos extends JPanel implements ActionListener{
                 modeloTablaH.setValueAt(actual.getCodigo(), i, 0);
                 modeloTablaH.setValueAt(actual.getNombre(), i, 1); 
                 modeloTablaH.setValueAt(actual.getDescripcion(),i,2);
-                modeloTablaH.setValueAt("", i, 3);
+                modeloTablaH.setValueAt(actual.saberTipo(), i, 3);
             }
             for(int  i = 0; i<productosL.size(); i++){
                 Producto actual = productosL.get(i);
                 modeloTablaL.setValueAt(actual.getCodigo(), i, 0);
                 modeloTablaL.setValueAt(actual.getNombre(), i, 1); 
-                modeloTablaL.setValueAt("", i, 2);
+                modeloTablaL.setValueAt(actual.saberTipo(), i, 2);
             }
             tablaH.setModel(modeloTablaH);
             tablaL.setModel(modeloTablaL);

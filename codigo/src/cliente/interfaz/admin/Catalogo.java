@@ -98,7 +98,7 @@ public class Catalogo extends JPanel implements ActionListener{
                     modeloTabla.setValueAt(actual.getPorcion().getCantidad(), i, 5);
                     modeloTabla.setValueAt(actual.getPorcion().getCalorias(), i, 6);
                     modeloTabla.setValueAt((actual.getPorcion().getCalorias()/
-                            actual.getPorcion().getSize()), i, 7);
+                            actual.getPorcion().getCantidad()), i, 7);
                     modeloTabla.setValueAt(actual.getPrecio(), i, 8);
                 }
             }
